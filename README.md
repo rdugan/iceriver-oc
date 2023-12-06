@@ -8,9 +8,11 @@ Customizable OC, small fee benefitting the community, no unnecessary changes to 
 
 # Features
 ### Configurable clock offset on 'Mining setting' page
-Clock can be increased to any value you want, in positive multiples of 10Mhz.  There are currently no guardrails, and no set upper limits, so use with care.
+Clock can be increased to any value you want, in positive multiples of 10Mhz.  Increases will take effect without restarting, but decreases will require a restart.
 
 Please note, clock is increased gradually from the base clock in 25Mhz increments by the hardware, so it may take some time to get to full speed, depending on how large of an offset you choose.
+
+IMPORTANT: There are currently no guardrails, and no set upper limits, so use with care.
 
 ### Chip temperature monitoring
 The per-board max temp of the actual asic chips is added to the 'Home' page for monitoring effects of overclocking.  No guidance has been provided by IceRiver as to safe limits, but at least following general guidance from G/CPUs is probably prodent (e.g. >80C warning zone, >90C danger zone, >100C critical zone).
