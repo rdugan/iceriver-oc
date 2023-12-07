@@ -21,6 +21,9 @@ The per-board max temp of the actual asic chips is added to the 'Home' page for 
 ### Fan settings reapplied at startup
 Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
 
+### Primary pool health monitor
+Health-check loop run on primary pool availability.  If miner has switched to one of the secondary pools for any reason, you will be switched back to your primary pool as soon as it becomes available again.
+
 ### General UI improvements
 
 # Installation
