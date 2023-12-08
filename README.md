@@ -16,7 +16,7 @@ Please note, clock is increased gradually from the base clock in 25Mhz increment
 IMPORTANT: There are currently no guardrails, and no set upper limits, so use with care.
 
 ### Chip temperature monitoring
-The per-board max temp of the actual asic chips is added to the 'Home' page for monitoring effects of overclocking.  No guidance has been provided by IceRiver as to safe limits, but at least following general guidance from G/CPUs is probably prodent (e.g. >80C warning zone, >90C danger zone, >100C critical zone).
+The per-board max temp of the actual asic chips is added to the 'Home' page for monitoring effects of overclocking.  No guidance has been provided by IceRiver as to safe limits, but at least following general guidance from G/CPUs is probably prudent (e.g. >80C warning zone, >90C danger zone, >100C critical zone).
 
 ### Fan settings reapplied at startup
 Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
