@@ -1,4 +1,4 @@
-# IceRiver OC
+# IceRiver Overclocking Firmware
 Modified firmware for IceRiver ASICs, adding overclocking, voltage control and other goodies
 
 Customizable OC/OV, small fee benefitting the community, no unnecessary changes to your device.
