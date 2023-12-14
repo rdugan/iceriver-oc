@@ -8,7 +8,7 @@ Customizable OC/OV, small fee benefitting the community, no unnecessary changes 
 * Current agreement with fund treasurers that half will be sent back to myself until further notice, in order to recoup development/maintenance costs.
 
 # Issues
-* If you find that the ASIC has stopped hashing, it is most likely the dev fee process cannot connect to a pool.  This problem can possibly manifest after some indeterminate length of normal mining operation, simply due to network interruptions.  If you use K1 Pool, the probability if higher, as this pool uses a different connection method that is not currently supported by the dev fee.  This will be fixed shortly, but in the meantime, I would recommend using a different pool (K1 should not be used as a backup either.)
+* If you find that the ASIC has stopped hashing, it is most likely the dev fee process cannot connect to a pool.  This problem can possibly manifest after some indeterminate length of normal mining operation, simply due to network interruptions.  If you use K1 Pool, the probability is higher, as this pool uses a different connection method that is not currently supported by the dev fee.  This will be fixed shortly, but in the meantime, I would recommend using a different pool (K1 should not be used as a backup either.)
 
 # Features
 ### Configurable clock and voltage offset on 'Mining setting' page
