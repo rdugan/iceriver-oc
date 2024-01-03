@@ -1,5 +1,3 @@
-Hi Knaxso
-
 # IceRiver Overclocking Firmware
 Modified firmware for IceRiver ASICs, adding overclocking, voltage control and other goodies
 
