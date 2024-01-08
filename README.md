@@ -3,6 +3,8 @@ Modified firmware for all IceRiver ASICs except KS0Pro, adding overclocking, vol
 
 Customizable OC/OV, small fee benefitting the community, no unnecessary changes to your device.
 
+Firmware files can be downloaded from the Releases section on the right hand side of this page.
+
 <br>
 
 # Fee
