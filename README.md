@@ -6,31 +6,60 @@ Customizable OC/OV, small fee benefitting the community, no unnecessary changes 
 # Fee
 * 1% fee directed to the official Kaspa Development Fund.
 * Current agreement with fund treasurers that half will be sent back to myself until further notice, in order to recoup development/maintenance costs.
+<br>
 
 # Features
+
+## Configuration additions/updates
+
+<br>
+
 ### Configurable clock and voltage offset on 'Mining setting' page
+
+![Performance Settings](/docs/images/iceriver-oc_settings.png)
+
 Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
 
 Clock can be increased/decreased to any integer value (within hardware limits).  Changes take effect immediately without restart, but note that clock clock increases are gradually applied in increments of 25Mhz per 30s.  As a result, it may take some time to get to full speed, possibly even ~10 minutes, depending on how large of an offset you choose.  KS3/M/L models see to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
 
 IMPORTANT: THERE ARE CURRENTLY NO GUARDRAILS, AND NO LIMITS ENFORCED BY THIS SOFTWARE ON EITHER CLOCKS OR VOLTAGE, SO USE WITH CARE.
 
-### Chip temperature monitoring
-The per-board max temp of the actual asic chips is added to the 'Home' page for monitoring effects of overclocking.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >80C warning zone, >90C danger zone, >100C critical zone).
-
-### Real-time voltage and clock display with clock ramping indicator
-The per board real-time average chip voltage and clock values are added to the 'Home' page.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that voltage real-time will never match your setting - drivers under load experience something called 'droop', meaning the running voltage will always be below the set voltage, with more load causing greater droop.
-
-### Uptime and job rate on pool status
-The uninterrupted uptime, and job issuance rate are added per pool on the 'Home' page.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not erroneously rejecting 'old' shares), it is a signal that the pool is not functioning properly, and you may want to alert the pool operator, or possibly find another option.
+<br>
 
 ### Fan settings reapplied at startup
 Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
 
+<br>
+
+## Additional telemetry and other changes to home page
+
+![Home Page](/docs/images/iceriver-oc_home.png)
+
+<br>
+
+### Chip temperature monitoring
+The per-board max temp of the actual asic chips is added to the 'Home' page for monitoring effects of overclocking.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >80C warning zone, >90C danger zone, >100C critical zone).
+
+<br>
+
+### Real-time voltage and clock display with clock ramping indicator
+The per board real-time average chip voltage and clock values are added to the 'Home' page.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that voltage real-time will never match your setting - drivers under load experience something called 'droop', meaning the running voltage will always be below the set voltage, with more load causing greater droop.
+
+<br>
+
+### Uptime and job rate on pool status
+The uninterrupted uptime, and job issuance rate are added per pool on the 'Home' page.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not erroneously rejecting 'old' shares), it is a signal that the pool is not functioning properly, and you may want to alert the pool operator, or possibly find another option.
+
+<br>
+
 ### Primary pool health monitor
 Health-check loop run on primary pool availability.  If miner has switched to one of the secondary pools for any reason, you will be switched back to your primary pool as soon as it becomes available again.
 
+<br>
+
 ### General UI improvements
+
+<br>
 
 # Installation
 This is a standard firmware update package, including/improving on the latest IceRiver firmware, and applied just as official firmware would be.  Applying over any previous updates should work.
@@ -43,6 +72,8 @@ However, if you run into problems, try the following process:
 * Force refresh the web page in your browser and/or clear the cache
 
 Also, make sure to redo your pool settings, as they will have been reset to the default Kaspa Dev Fund address.
+
+<br>
 
 # Usage Tips
 It is highly recommended you have a power meter attached to your machines, to ensure you are within your PSU limits.  This is especially true for KS3M, which has very little PSU headroom even at stock settings.
