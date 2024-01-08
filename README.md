@@ -78,7 +78,9 @@ Also, make sure to redo your pool settings, as they will have been reset to the 
 # Usage Tips
 It is highly recommended you have a power meter attached to your machines, to ensure you are within your PSU limits.  This is especially true for KS3M, which has very little PSU headroom even at stock settings.
 
-CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HEALTHY MACHINE.  E.g. if your clock offset is 30% on a KS1, then your hashrate should be 1.3TH/s, or 30% more than the default 1 TH/s.  If this is not the case (over an appropriate measurement window,) then it means your chips are starved for voltage.
+CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HEALTHY MACHINE.
+
+E.g. if your clock offset is 30% on a KS1, then your hashrate should be 1.3TH/s, or 30% more than the default 1 TH/s.  If this is not the case (over an appropriate measurement window,) then it means your chips are starved for voltage.
 
 Proper tuning is a process that takes time.  Using other peoplse settings is generally not a great idea, as every machine is different.  Best practice is to start at a conservative clock offset that results a matching hashrate increase with no voltage changes.  As you further raise your clocks in small increments (e.g. 20mhz), once you no longer see hashrate respond 1:1 (or maybe even start dropping), it is an indication that more voltage is needed.  
 
