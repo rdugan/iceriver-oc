@@ -106,7 +106,7 @@ CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HE
 
 E.g. if your clock offset is 30% on a KS1, then your hashrate should be 1.3TH/s, or 30% more than the default 1 TH/s.  If this is not the case (over an appropriate measurement window,) then it means your chips are starved for voltage.
 
-Proper tuning is a process that takes time.  Using other peoplse settings is generally not a great idea, as every machine is different.  Best practice is to start at a conservative clock offset that results a matching hashrate increase with no voltage changes.  As you further raise your clocks in small increments (e.g. 20mhz), once you no longer see hashrate respond 1:1 (or maybe even start dropping), it is an indication that more voltage is needed.  
+Proper tuning is a process that takes time.  Using other peoples settings is generally not a great idea, as every machine is different.  Best practice is to start at a conservative clock offset that results in a matching hashrate increase with no voltage changes.  As you further raise your clocks in small increments (e.g. 20mhz), once you no longer see hashrate respond 1:1 (or maybe even start dropping), it is an indication that more voltage is needed.  
 
 At that point, increase voltage by a single step (7 or 6mv depending on current leve), then see if hashrate responds.  If it does, and once again equals clock offset on a percentage basis, go back to raising clock.  Continue this back and forth between clock and voltage offsets until you reach your desired hashrate, while being mindful of temperature and power limits.
 
