@@ -43,7 +43,7 @@ The per-board max temp of the actual asic chips is added to the 'Home' page for 
 <br>
 
 ### Real-time voltage and clock display with clock ramping indicator
-The per board real-time average chip voltage and clock values are added to the 'Home' page.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that voltage real-time will never match your setting - drivers under load experience something called 'droop', meaning the running voltage will always be below the set voltage, with more load causing greater droop.
+The per board real-time average chip voltage and clock values are added to the 'Home' page.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that real-time voltage will never match your setting - drivers under load experience something called 'droop', meaning the running voltage will always be below the set voltage, with more load causing greater droop.
 
 <br>
 
