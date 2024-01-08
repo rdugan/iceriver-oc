@@ -5,6 +5,8 @@ Customizable OC/OV, small fee benefitting the community, no unnecessary changes 
 
 Firmware files can be downloaded from the Releases section on the right hand side of this page.
 
+If you have any issues, finding me (pbfarmer) in the Kaspa Discord will probably result in the fastest response/resolution.
+
 <br>
 
 # Fee
