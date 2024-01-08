@@ -3,6 +3,8 @@ Modified firmware for all IceRiver ASICs except KS0Pro, adding overclocking, vol
 
 Customizable OC/OV, small fee benefitting the community, no unnecessary changes to your device.
 
+<br>
+
 # Fee
 * 1% fee directed to the official Kaspa Development Fund.
 * Current agreement with fund treasurers that half will be sent back to myself until further notice, in order to recoup development/maintenance costs.
@@ -28,6 +30,8 @@ IMPORTANT: THERE ARE CURRENTLY NO GUARDRAILS, AND NO LIMITS ENFORCED BY THIS SOF
 
 ### Fan settings reapplied at startup
 Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
+
+<br>
 
 <br>
 
