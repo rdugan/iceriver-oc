@@ -65,6 +65,22 @@ Health-check loop run on primary pool availability.  If miner has switched to on
 
 <br>
 
+<br>
+
+## Stability improvements
+
+<br>
+
+### Fix for web server crashes
+Replaced stock web server with updated and production environment targeted version, while adding cache/memory control configuration.  This should address the issues seen by users of HiveOS and other external monitoring tools that caused the web server to crash after too many page loads (resulting in the ASIC UI being unavailable.)
+
+<br>
+
+### Healthcheck loop on web server
+In addition to the previous change, a healthcheck loop has been added, which will automatically restart the web server should it crash for any other reason.
+
+<br>
+
 # Installation
 This is a standard firmware update package, including/improving on the latest IceRiver firmware, and applied just as official firmware would be.  Applying over any previous updates should work.
 
