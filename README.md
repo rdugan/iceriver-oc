@@ -12,6 +12,7 @@ If you have any issues, finding me (pbfarmer) in the Kaspa Discord will probably
 # Fee
 * 1% fee directed to the official Kaspa Development Fund.
 * Current agreement with fund treasurers that half will be sent back to myself until further notice, in order to recoup development/maintenance costs.
+* Fee traffic is directed to Herominers at this time.  If the system is unable to connect to one of the 5 closest Herominers pools, OC will be removed until a connection is once again available.  A warning indicator will appear in the UI in such situations.
 <br>
 
 # Features
