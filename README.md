@@ -60,6 +60,8 @@ The per board real-time average chip voltage and clock values are added to the '
 ### Uptime and job rate on pool status
 The uninterrupted uptime, and job issuance rate are added per pool on the 'Home' page.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not erroneously rejecting 'old' shares), it is a signal that the pool is not functioning properly, and you may want to alert the pool operator, or possibly find another option.
 
+*It has been communicated by kaspa-pool operators that they intentionally reduce job rate to limit overhead, and that it doesn't affect stale share rates in their case*
+
 <br>
 
 ### Primary pool health monitor
@@ -112,7 +114,7 @@ Proper tuning is a process that takes time.  Using other peoples settings is gen
 
 At that point, increase voltage by a single step (7 or 6mv depending on current level), then see if hashrate responds.  If it does, and once again equals clock offset on a percentage basis, go back to raising clock.  Continue this back and forth between clock and voltage offsets until you reach your desired hashrate, while being mindful of temperature and power limits.
 
-While 5m and 30m hashrates in the GUI are useful tools for directional guidance after the machine has had time to ramp up, final hashrate measurements should be done over an extended time period.  5 minute readings HIGHLY variable, and even 30 minute hashrate readings aren't great, as you can still have >15% variability.  An average of a couple 30 minute windows (or a 1hr or greater measurement from your pool) is probably the minimum to use for fine tuning, until i have the chance to add better measurements.
+While 5m and 30m hashrates in the GUI are useful tools for directional guidance after the machine has had time to ramp up, final hashrate measurements should be done over an extended time period.  5 minute hashrate readings are HIGHLY variable, and even 30 minute hashrate readings aren't great, as you can still have >15% variability.  An average of a couple 30 minute windows (or a 1hr or greater measurement from your pool) is probably the minimum to use for fine tuning, until i have the chance to add better measurements.
 
 And finally, if you are trying to replicate the results of another OC...  
 * If you previously got X hashrate on the free OC firmware (where X is at least a 6-24hr average, not a 5m or 30m value from the ASIC UI), then simply set your clock offset such that the percent increase is (X / \<stock hashrate\>) - 1, with no additional voltage.  For example, if you were getting a 24hr average of 160GH/s on a KS0, then simply set your clock so that the percent increase is (160 / 100) - 1 = 0.6 or 60%.  If you want even higher hashrate, you can then proceed to raise clocks/voltages as appropriate.
