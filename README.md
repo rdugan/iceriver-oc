@@ -58,7 +58,7 @@ The per board real-time average chip voltage and clock values are added to the '
 <br>
 
 ### Uptime and job rate on pool status
-The uninterrupted uptime, and job issuance rate are added per pool on the 'Home' page.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not erroneously rejecting 'old' shares), it is a signal that the pool is not functioning properly, and you may want to alert the pool operator, or possibly find another option.
+The uninterrupted uptime, and job issuance rate are added per pool on the 'Home' page.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not unnecessarily rejecting 'old' shares), it is a signal that the pool may not be functioning properly, and you may want to alert the pool operator, or possibly find another option.
 
 *It has been communicated by kaspa-pool operators that they intentionally reduce job rate to limit overhead, and that it doesn't affect stale share rates in their case*
 
