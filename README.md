@@ -142,6 +142,11 @@ You need 1200 shares just to get to an expected variance of +/- 10% with 99% con
 
 And this leads to the crux of the issue - most pools do not provide anything higher than a 24hr measurement, which at ~5 shares/minute means roughly 7200 shares, which is still a 4% expected variance.  You need 10K shares just for 3.3% variance, and about 100K shares for a 1% variance.  The only solution then, is to find a pool that lets you set your own difficulty, so that you can generate a statistically relevant number of shares for their available timeframes.  While Herominers seems to have this functionality, my recent tests seem to indicate it is not working, at least for a KS3.  
 
-The only option I know of which reliably allows setting your own diff is solo mining to your own node and the [kaspa-stratum-bridge](https://github.com/rdugan/kaspa-stratum-bridge). The default vardiff settings will produce a minimum 20 shares/min, which is enough to have <= +/- 5% variance in 4hrs, and the dashboard (grafana) allows measurements in any timeframe/resolution you want, including signficantly longer timeframes than 24hrs.
+The only option I know of which reliably allows setting your own diff is solo mining to your own node and the [kaspa-stratum-bridge](https://github.com/rdugan/kaspa-stratum-bridge). The default vardiff settings will produce a minimum 20 shares/min, which is enough to have <= +/- 5% variance in 4hrs, and the dashboard (grafana) allows measurements in any timeframe/resolution you want, including signficantly longer timeframes than 24hrs.  
+
+As a concrete example of the difference between valid and invalid measurements (as well as how kaspa-stratum-bridge can help), here's the hashrate readings of 3 machines, a KS0 at 51% OC, a KS1 at 37% OC, and a KS3M at 1% OC.  The measurements are, from top to bottom, 24hrs, 1hr, and 30m.  You can see how divergent the measurements can be from expected for the shorter timeframes:
+
+![KS0, KS1, KS3M OC Hashrates](/docs/images/hashrates.png)
+
 
 In short, if you are trying to confirm the effects of a small OC on the ASIC UI, it is simply impossible - you will never be able to separate the signal from the noise.  You may be able to do so on your pool (depending which one you use), but you will need to use long term measurements.  5/30m readings will never be enough, even at the minimum difficulty required by the ASIC.
