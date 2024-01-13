@@ -144,7 +144,7 @@ And this leads to the crux of the issue - most pools do not provide anything hig
 
 The only option I know of which reliably allows setting your own diff is solo mining to your own node and the [kaspa-stratum-bridge](https://github.com/rdugan/kaspa-stratum-bridge). The default vardiff settings will produce a minimum 20 shares/min, which is enough to have <= +/- 5% variance in 4hrs, and the dashboard (grafana) allows measurements in any timeframe/resolution you want, including signficantly longer timeframes than 24hrs.  
 
-As a concrete example of the difference between valid and invalid measurements (as well as how kaspa-stratum-bridge can help), here's the hashrate readings of 3 machines, a KS0 at 51% OC, a KS1 at 37% OC, and a KS3M at 1% OC.  The measurements are, from top to bottom, 24hrs, 1hr, and 30m.  You can see how divergent the measurements can be from expected for the shorter timeframes:
+As a concrete example of the difference between valid and invalid measurements (as well as how kaspa-stratum-bridge can help), here's the hashrate readings of 3 machines using diffs producing >= 30 shares/min, a KS0 at 51% OC, a KS1 at 37% OC, and a KS3M at 1% OC.  The measurements are, from top to bottom, 24hrs (>= 43K shares), 1hr (>= 1800 shares), and 30m (> 900 shares).  You can see how divergent the measurements can be from expected for the shorter timeframes:
 
 ![KS0, KS1, KS3M OC Hashrates](/docs/images/hashrates.png)
 
