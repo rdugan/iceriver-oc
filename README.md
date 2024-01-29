@@ -69,7 +69,7 @@ Clock and voltage settings have been added to the 'Mining setting' page.  Clock 
 
 KS3/M/L and KS0 Pro models seem to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
 
-Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
+Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally for everything but KS0 Pro.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. For KS0 Pro, voltage can be adjusted in 2mV increments.  VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
 
 <br>
 
@@ -180,7 +180,7 @@ E.g. if your clock offset is 30% on a KS1, then your hashrate should be 1.3TH/s,
 
 Proper tuning is a process that takes time.  Using other peoples settings is generally not a great idea, as every machine is different.  Best practice is to start at a conservative clock offset that results in a matching hashrate increase with no voltage changes.  As you further raise your clocks in small increments (e.g. 25mhz or less), once you no longer see hashrate respond 1:1 (or maybe even start dropping), it is an indication that more voltage is needed.  
 
-At that point, increase voltage by a single step (7 or 6mv depending on current level), then see if hashrate responds.  If it does, and once again equals clock offset on a percentage basis, go back to raising clock.  Continue this back and forth between clock and voltage offsets until you reach your desired hashrate, while being mindful of temperature and power limits.
+At that point, increase voltage by a single step (2mv for KS0 Pro, 7 or 6mv depending on current level for all other models), then see if hashrate responds.  If it does, and once again equals clock offset on a percentage basis, go back to raising clock.  Continue this back and forth between clock and voltage offsets until you reach your desired hashrate, while being mindful of temperature and power limits.
 
 While 5m and 30m hashrates in the GUI are useful tools for directional guidance after the machine has had time to ramp up, final hashrate measurements should be done over an extended time period.  5 minute hashrate readings are HIGHLY variable, and even 30 minute hashrate readings aren't great, as you can still have >15% variability.  An average of a couple 30 minute windows (or a 1hr or greater measurement from your pool) is probably the minimum to use for fine tuning, until i have the chance to add better measurements.
 
