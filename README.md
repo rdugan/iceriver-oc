@@ -69,7 +69,11 @@ Clock and voltage settings have been added to the 'Mining setting' page.  Clock 
 
 KS3/M/L and KS0 Pro models seem to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
 
-Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally for everything but KS0 Pro.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. For KS0 Pro, voltage can be adjusted in 2mV increments.  VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
+Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally for everything but KS0 Pro.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. 
+
+For KS0 Pro, voltage can be adjusted in 2mV increments.  
+
+VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
 
 <br>
 
