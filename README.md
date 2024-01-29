@@ -9,6 +9,16 @@ If you have any issues, finding me (pbfarmer) in the Kaspa Discord will probably
 
 <br>
 
+# Special Thanks
+
+None of these firmwares would be possible without a number of people's efforts in testing and feedback (as well as specific efforts in pulling the stock firmware from the KS0 Pro - these people are mentioned in the release notes.)  
+
+However, one person in particular has sacrificed his machines from the beginning, granting me direct access for development, allowing me to risk his machines while testing brand new features, and suffering numerous mining interruptions during the frequent updates and restarts.  
+
+This person goes by the Discord handle Onslivion - it would be great if you could drop him a thanks on the Kaspa Discord, and maybe even send him a tip or some of your hashrate ( kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y ).
+
+<br>
+
 # Fee
 * 1% fee directed to the official Kaspa Development Fund.
 * Current agreement with fund treasurers that half will be sent back to myself until further notice, in order to recoup development/maintenance costs.
