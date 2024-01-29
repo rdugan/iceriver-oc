@@ -9,6 +9,30 @@ If you have any issues, finding me (pbfarmer) in the Kaspa Discord will probably
 
 <br>
 
+# Table of Contents
+- [Special Thanks](#special-thanks)
+- [Fee](#fee)
+- [Known Issues](#known-issues)
+- [Features](#features)
+  - [Configuration additions and updates](#configuration-additions-and-updates)
+    - [Configurable clock and voltage offset](#configurable-clock-and-voltage-offset)
+    - [Better fan controls](#better-fan-controls)
+  - [Additional telemetry and other changes to home page](#additional-telemetry-and-other-changes-to-home-page)
+    - [Graphing of chip metrics and longer term hashrates](#graphing-of-chip-metrics-and-longer-term-hashrates)
+    - [Uptime and job rate on pool status](#uptime-and-job-rate-on-pool-status)
+    - [Chip temperature monitoring](#chip-temperature-monitoring)
+    - [Real-time voltage and clock display with clock ramping indicator](#real-time-voltage-and-clock-display-with-clock-ramping-indicator)
+    - [Primary pool health monitor](#primary-pool-health-monitor)
+    - [General UI improvements](#general-ui-improvements)
+  - [Stability improvements](#stability-improvements)
+    - [Fix for web server crashes](#fix-for-web-server-crashes)
+    - [Healthcheck loop on web server](#healthcheck-loop-on-web-server)
+- [Installation](#installation)
+- [Usage Tips](#usage-tips)
+- [Let's Talk About Hashrates](#lets-talk-about-hashrates)
+
+<br>
+
 # Special Thanks
 
 None of these firmwares would be possible without a number of people's efforts in testing and feedback (as well as specific efforts in pulling the stock firmware from the KS0 Pro - these people are mentioned in the release notes.)  
@@ -25,7 +49,7 @@ This person goes by the Discord handle Onslivion - it would be great if you coul
 * Fee traffic is directed to *.kaspa.pool.pbfarmer.cc, which is currently just an alias for Herominers (e.g. us.kaspa.pool.pbfarmer.cc => us.kaspa.herominers.com).  If the system is unable to connect to one of the 5 closest Herominers pools, OC will be removed until a connection is once again available.  A warning indicator will appear in the UI in such situations.
 <br>
 
-# Issues
+# Known Issues
 * A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining, check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the AIProtection features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
 * There may be incompatiblities between HiveOS/AsicHub and this firmware, since I've modified the stock UI.  If you witness strange behavior like wildly fluctuating hashrate, odd temperature readings, or random restarts, try disconnecting from AsicHub to see if the the problem goes away.  If so, please let me know on GitHub or Discord if possible, so I can try to find a solution.
 
@@ -33,15 +57,17 @@ This person goes by the Discord handle Onslivion - it would be great if you coul
 
 # Features
 
-## Configuration additions/updates
+## Configuration additions and updates
 
 <br>
 
-### Configurable clock and voltage offset on 'Mining setting' page
+### Configurable clock and voltage offset
 
 ![Performance Settings](/docs/images/iceriver-oc_settings.png)
 
-Clock can be increased/decreased to any integer value (within hardware limits).  Changes take effect immediately without restart, but note that clock increases are gradually applied in increments of 25Mhz per 30s (25Mhz per 2m for KS3/M/L and KS0 Pro due to slow feedback from the hardware).  As a result, it may take some time to get to full speed, possibly even ~10 minutes, depending on how large of an offset you choose.  KS3/M/L models seem to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
+Clock and voltage settings have been added to the 'Mining setting' page.  Clock can be increased/decreased to any integer value (within hardware limits).  Changes take effect immediately without restart, but note that clock increases are gradually applied in increments of 25Mhz per 30s (25Mhz per 2m for KS3/M/L and KS0 Pro due to slow feedback from the hardware).  As a result, it may take some time to get to full speed, possibly even ~10 minutes, depending on how large of an offset you choose.  
+
+KS3/M/L and KS0 Pro models seem to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
 
 Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
 
@@ -71,7 +97,7 @@ Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
 
 <br>
 
-### Graphing of chip temps/clocks/voltages and longer term hashrates
+### Graphing of chip metrics and longer term hashrates
 
 ![Home Page](/docs/images/iceriver-oc_home.png)
 
@@ -109,6 +135,7 @@ Health-check loop run on primary pool availability.  If miner has switched to on
 <br>
 
 ### General UI improvements
+Numerous css/js fixes vs stock firmware.  This is a constant work-in-progress.
 
 <br>
 
