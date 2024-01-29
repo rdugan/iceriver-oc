@@ -41,7 +41,7 @@ This person goes by the Discord handle Onslivion - it would be great if you coul
 
 ![Performance Settings](/docs/images/iceriver-oc_settings.png)
 
-Clock can be increased/decreased to any integer value (within hardware limits).  Changes take effect immediately without restart, but note that clock increases are gradually applied in increments of 25Mhz per 30s.  As a result, it may take some time to get to full speed, possibly even ~10 minutes, depending on how large of an offset you choose.  KS3/M/L models seem to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
+Clock can be increased/decreased to any integer value (within hardware limits).  Changes take effect immediately without restart, but note that clock increases are gradually applied in increments of 25Mhz per 30s (25Mhz per 2m for KS3/M/L and KS0 Pro due to slow feedback from the hardware).  As a result, it may take some time to get to full speed, possibly even ~10 minutes, depending on how large of an offset you choose.  KS3/M/L models seem to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
 
 Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
 
@@ -51,7 +51,16 @@ Voltage can be increased/decreased to any integer value (within hardware limits)
 
 <br>
 
-### Fan settings reapplied at startup
+### Better fan controls
+
+![Performance Settings](/docs/images/iceriver-oc_fan_settings.png)
+
+A new fan mode has been added which automatically adjusts fan speed to maintain a max chip temperature.  Temps are read every 10s for KS0/1/2 and fan speed is adjusted as necessary.  
+
+Unfortunately, chip temps are only updated by the ASIC every 2minutes for KS3/M/L and KS0 Pro, so fan adjustments for these models are much slower.  While the new fan mode may still be used for those models, it is suggested to use a high minimum fan speed (maybe >= 70%), so that periods of highly dynamic temperature ranges (such as startup) do not cause excessive chip temps while the fan control is waiting on feedback.
+
+Please note, this setting does not guarantee the set temperature.  It may overshoot during startup or other dynamic periods, but it should stabilize at or near (within a few degrees) the requested temperature.
+
 Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
 
 <br>
@@ -60,24 +69,37 @@ Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
 
 ## Additional telemetry and other changes to home page
 
+<br>
+
+### Graphing of chip temps/clocks/voltages and longer term hashrates
+
 ![Home Page](/docs/images/iceriver-oc_home.png)
 
-<br>
+Two hours of graphing has been added for all chip metrics, with filters for summaries (per board min/max/avg), board, or all chips.  Hashrate graphing (as well as the headline stats) now includes 30m and 2hr tracking, and also includes board level filtering.  
 
-### Chip temperature monitoring
-The per-board max temp of the actual asic chips is added to the 'Home' page for monitoring effects of overclocking.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >80C warning zone, >90C danger zone, >100C critical zone).
+Instantaneous values are shown in the legend, and individual lines can be disabled/enabled by clicking on the labels.  Graph scales are no longer zero based, and adjust depending on which lines are displayed, meaning they are no longer artifically flattend by poor resolution, and you can actually see the variability in each measurement.
 
-<br>
-
-### Real-time voltage and clock display with clock ramping indicator
-The per board real-time average chip voltage and clock values are added to the 'Home' page.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that real-time voltage will never match your setting - drivers under load experience something called 'droop', meaning the running voltage will always be below the set voltage, with more load causing greater droop.
+*Hopefully this helps clear up how useless 5m readings really are.*
 
 <br>
 
 ### Uptime and job rate on pool status
-The uninterrupted uptime, and job issuance rate are added per pool on the 'Home' page.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not unnecessarily rejecting 'old' shares), it is a signal that the pool may not be functioning properly, and you may want to alert the pool operator, or possibly find another option.
+
+![Home Page](/docs/images/iceriver-oc_pools_fans.png)
+
+The uninterrupted uptime, and job issuance rate are added to the pool stats section.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not unnecessarily rejecting 'old' shares), it is a signal that the pool may not be functioning properly, and you may want to alert the pool operator, or possibly find another option.
 
 *It has been communicated by kaspa-pool operators that they intentionally reduce job rate to limit overhead, and that it doesn't affect stale share rates in their case*
+
+<br>
+
+### Chip temperature monitoring
+The per-board max temp of the actual asic chips is added to the board stats section.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >85C warning zone, >95C danger zone, >105C critical zone).
+
+<br>
+
+### Real-time voltage and clock display with clock ramping indicator
+The per board real-time average chip voltage and clock values are added to the board stats section.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that real-time voltage will never match your setting - drivers under load experience something called 'droop', meaning the running voltage will always be below the set voltage, with more load causing greater droop.
 
 <br>
 
