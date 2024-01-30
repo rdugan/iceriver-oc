@@ -39,7 +39,9 @@ None of these firmwares would be possible without a number of people's efforts i
 
 However, one person in particular has sacrificed his machines from the beginning, granting me direct access for development, allowing me to risk his machines while testing brand new features, and suffering numerous mining interruptions during the frequent updates and restarts.  
 
-This person goes by the Discord handle Onslivion - it would be great if you could drop him a thanks on the Kaspa Discord, and maybe even send him a tip or some of your hashrate ( kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y ).
+This person goes by the Discord handle Onslivion - it would be great if you could drop him a thanks on the Kaspa Discord, and maybe even send him a tip or some of your hashrate:
+
+kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y
 
 <br>
 
