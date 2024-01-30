@@ -26,7 +26,7 @@ If you have any issues, finding me (pbfarmer) in the Kaspa Discord will probably
     - [General UI improvements](#general-ui-improvements)
   - [Stability improvements](#stability-improvements)
     - [Fix for web server crashes](#fix-for-web-server-crashes)
-    - [Healthcheck loop on web server](#healthcheck-loop-on-web-server)
+    - [Healthcheck loop](#healthcheck-loop)
 - [Installation](#installation)
 - [Usage Tips](#usage-tips)
 - [Let's Talk About Hashrates](#lets-talk-about-hashrates)
@@ -156,8 +156,8 @@ Replaced stock web server with updated and production environment targeted versi
 
 <br>
 
-### Healthcheck loop on web server
-In addition to the previous change, a healthcheck loop has been added, which will automatically restart the web server should it crash for any other reason.
+### Healthcheck loop
+In addition to the previous change, a healthcheck loop has been added, which will automatically restart the miner or web server should either crash for any reason.
 
 <br>
 
