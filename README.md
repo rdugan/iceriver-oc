@@ -126,7 +126,9 @@ The uninterrupted uptime, and job issuance rate are added to the pool stats sect
 <br>
 
 ### Chip temperature monitoring
-The per-board max temp of the actual asic chips is added to the board stats section.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >85C warning zone, >95C danger zone, >105C critical zone).
+The per-board max temp of the actual asic chips is added to the board stats section.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >85C warning zone, >95C danger zone, >105C critical zone).  
+
+Anecdotal evidence from users seems to indicate chip temps in the range of 70-80C provided optimal hashrates, at least on KS1/2/3*.  For KS0/PRO, this may be hotter than desired, as exhaust temps (primarily reflecting power stage temps) tend to be higher due to the tight enclosure and lack of airflow.
 
 <br>
 
