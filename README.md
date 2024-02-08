@@ -1,5 +1,5 @@
 # IceRiver Overclocking Firmware
-Modified firmware for all IceRiver ASICs except KS0Pro, adding overclocking, voltage control and other goodies
+Modified firmware for all IceRiver ASICs, adding overclocking, voltage control and other goodies
 
 Customizable OC/OV, small fee benefitting the community, no unnecessary changes to your device.
 
