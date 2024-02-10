@@ -52,7 +52,8 @@ kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y
 <br>
 
 # Known Issues
-* A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining, check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the AIProtection features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
+* IceRiver ASICs insist on using static IP settings, even after you set them to DHCP.  If these IPs are not reserved in your router, at some point your router may assign these IPs to another device in your network, and you will have network / connection problems.  The solution to this is to find the MAC address to IP address mapping table in the LAN/DHCP section of your router settings, and add a mapping for every one of your ASICs (the MAC address should be on a sticker on the outside of your ASIC.)  Once you've added these mappings, restart the router, update every ASIC to use DHCP, and restart all of the ASICs.  Now your ASICs should acquire the fixed IP via DHCP, and even if/when they revert to static IPs, it should no longer cause issues, since the router has reserved the IP(s).
+* A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining (even after following the previous steps), check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the AIProtection features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
 * There may be incompatiblities between HiveOS/AsicHub and this firmware, since I've modified the stock UI.  If you witness strange behavior like wildly fluctuating hashrate, odd temperature readings, or random restarts, try disconnecting from AsicHub to see if the the problem goes away.  If so, please let me know on GitHub or Discord if possible, so I can try to find a solution.
 
 <br>
@@ -107,7 +108,11 @@ Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
 
 ![Home Page](/docs/images/iceriver-oc_home.png)
 
-Two hours of graphing has been added for all chip metrics, with filters for summaries (per board min/max/avg), board, or all chips.  Hashrate graphing (as well as the headline stats) now includes 30m and 2hr tracking, and also includes board level filtering.  
+Two hours of graphing has been added for all chip metrics, with filters for summaries (per board min/max/avg), board, or all chips.  Additionally, board temp (intake/exhaust) graphs have been added for all models, which also include power stage (driver) temps for KS0/Pro, KS1, and KS2.  In summary mode, the max power stage temp is shown for each board, while in board mode, the max power stage temp is shown for each group/controller (PSG).  Max recommended operating temp is 125C according to the chip documentation, though it is probably wise to keep a healthy margin below this temp.  
+
+Please be aware, that temperature is not the only consideration for healthy operation.  Power/current draw is also a concern, for which we don't currently have visibility or specifications.
+
+Hashrate graphing (as well as the headline stats) now includes 30m and 2hr tracking, and also includes board level filtering.  
 
 Instantaneous values are shown in the legend, and individual lines can be disabled/enabled by clicking on the labels.  Graph scales are no longer zero based, and adjust depending on which lines are displayed, meaning they are no longer artifically flattend by poor resolution, and you can actually see the variability in each measurement.
 
@@ -122,6 +127,8 @@ Instantaneous values are shown in the legend, and individual lines can be disabl
 The uninterrupted uptime, and job issuance rate are added to the pool stats section.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not unnecessarily rejecting 'old' shares), it is a signal that the pool may not be functioning properly, and you may want to alert the pool operator, or possibly find another option.
 
 *It has been communicated by kaspa-pool operators that they intentionally reduce job rate to limit overhead, and that it doesn't affect stale share rates in their case*
+
+Multiple status indicators have been added to the pool section to help diagnose different network / pool issues.  A gray busy (spinning) icon indicates the asic is attempting to connect to the pool.  A green busy icon indicates a network connection, but no stratum connection yet. A yellow warning icon indicates a successful stratum connection, but no jobs have been received.
 
 <br>
 
@@ -143,7 +150,9 @@ Health-check loop run on primary pool availability.  If miner has switched to on
 <br>
 
 ### General UI improvements
-Numerous css/js fixes vs stock firmware.  This is a constant work-in-progress.
+Dark mode!
+
+Numerous other css/js fixes vs stock firmware.  This is a constant work-in-progress.
 
 <br>
 
@@ -159,7 +168,9 @@ Replaced stock web server with updated and production environment targeted versi
 <br>
 
 ### Healthcheck loop
-In addition to the previous change, a healthcheck loop has been added, which will automatically restart the miner or web server should either crash for any reason.
+A healthcheck loop has been added, which will automatically restart the miner or web server should either crash for any reason.
+
+Additionally, the 'reset' executable that has been found to randomly disappear from peoples machines (even stock setups), is now packaged with the firmware, and a healthcheck loop has been added to replace/restart the file if necessary.  This should address the 30m reboot loops many people are experiencing.
 
 <br>
 
