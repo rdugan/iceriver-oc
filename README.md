@@ -114,6 +114,8 @@ Please be aware, that temperature is not the only consideration for healthy oper
 
 Hashrate graphing (as well as the headline stats) now includes 30m and 2hr tracking, and also includes board level filtering.  
 
+Mouseover tooltips have been synchronized across all graphs, to help with diagnosing issues / anomalies.
+
 Instantaneous values are shown in the legend, and individual lines can be disabled/enabled by clicking on the labels.  Graph scales are no longer zero based, and adjust depending on which lines are displayed, meaning they are no longer artifically flattend by poor resolution, and you can actually see the variability in each measurement.
 
 *Hopefully this helps clear up how useless 5m readings really are.*
