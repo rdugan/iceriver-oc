@@ -193,7 +193,7 @@ Also, make sure to redo your pool settings, as they will have been reset to the 
 # Usage Tips
 It is highly recommended you have a power meter attached to your machines, to ensure you are within your PSU limits.  This is especially true for KS3M, which has very little PSU headroom even at stock settings.
 
-KS0 Pro ASICs need special attention to cooling.  The MOSFETs on these already run very hot, so hardware modifications for improved cooling are highly recommended - including heatsinks, and better airflow.
+KS0 Pro ASICs need special attention to cooling.  The power stages on these already run very hot, so hardware modifications for improved cooling are highly recommended - including heatsinks, and better airflow.
 
 CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HEALTHY MACHINE.
 
