@@ -54,7 +54,7 @@ kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y
 # Known Issues
 * IceRiver ASICs insist on using static IP settings, even after you set them to DHCP.  If these IPs are not reserved in your router, at some point your router may assign these IPs to another device in your network, and you will have network / connection problems.  The solution to this is to find the MAC address to IP address mapping table in the LAN/DHCP section of your router settings, and add a mapping for every one of your ASICs (the MAC address should be on a sticker on the outside of your ASIC.)  Once you've added these mappings, restart the router, update every ASIC to use DHCP, and restart all of the ASICs.  Now your ASICs should acquire the fixed IP via DHCP, and even if/when they revert to static IPs, it should no longer cause issues, since the router has reserved the IP(s).
 * A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining (even after following the previous steps), check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the AIProtection features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
-* There may be incompatiblities between HiveOS/AsicHub and this firmware, since I've modified the stock UI.  If you witness strange behavior like wildly fluctuating hashrate, odd temperature readings, or random restarts, try disconnecting from AsicHub to see if the the problem goes away.  If so, please let me know on GitHub or Discord if possible, so I can try to find a solution.
+* There may be incompatiblities between HiveOS/AsicHub or other 3rd party management/monitoring tools and this firmware.  Many of these tools scrape the ASIC UI to get data, and since I've signficantly modified the UI, their scrapers may no longer be compatible.  The only way to address this is for the management tools to migrate to the available API.
 
 <br>
 
@@ -142,7 +142,7 @@ Anecdotal evidence from users seems to indicate chip temps in the range of 70-80
 <br>
 
 ### Real-time voltage and clock display with clock ramping indicator
-The per board real-time average chip voltage and clock values are added to the board stats section.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that real-time voltage will never match your setting - drivers under load experience something called 'droop', meaning the running voltage will always be below the set voltage, with more load causing greater droop.
+The per board real-time average chip voltage and clock values are added to the board stats section.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that real-time voltage will never match your setting - drivers under load experience voltage drop, meaning the running voltage will always be below the set voltage, with more load causing a greater drop.
 
 <br>
 
@@ -193,7 +193,7 @@ Also, make sure to redo your pool settings, as they will have been reset to the 
 # Usage Tips
 It is highly recommended you have a power meter attached to your machines, to ensure you are within your PSU limits.  This is especially true for KS3M, which has very little PSU headroom even at stock settings.
 
-KS0 Pro ASICs need special attention to cooling.  The MOSFETs on these already run very hot, so hardware modifications for improved cooling are highly recommended - including heatsinks, and better airflow.
+KS0 Pro ASICs need special attention to cooling.  The power stages on these already run very hot, so hardware modifications for improved cooling are highly recommended - including heatsinks, and better airflow.
 
 CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HEALTHY MACHINE.
 
