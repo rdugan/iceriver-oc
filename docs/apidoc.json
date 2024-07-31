@@ -1,0 +1,1511 @@
+{
+    "description": "Requests are made using HTTP GET, or HTTP POST when parameters are to be included.  Parameters are sent in serialized urlencoded format.  Request details are provided in the endpoint documentation where parameters are available.  Response details are provided where something other than a basic response is possible.  A basic response simply includes error and message properties, where success generally looks like {\"error\": 0, \"message\": \"\"}",
+    "endpoints": {
+        "/api/overview": {
+            "description": "get combined set of data points, including hashrate, pool info, hashboard status, etc",
+            "permissions": "view_miner",
+            "response": {
+                "properties": {
+                    "data": {
+                        "description": "response data parent object",
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "model": {
+                                "description": "ASIC model name",
+                                "type": "string",
+                                "required": true
+                            },
+                            "firmver1": {
+                                "description": "name/version of flash image",
+                                "type": "string",
+                                "required": true
+                            },
+                            "firmver2": {
+                                "description": "name/version of file system image",
+                                "type": "string",
+                                "required": true
+                            },
+                            "softver1": {
+                                "description": "name/version of miner package",
+                                "type": "string",
+                                "required": true
+                            },
+                            "softver2": {
+                                "description": "name/version of web app package",
+                                "type": "string",
+                                "required": true
+                            },
+                            "firmtype": {
+                                "description": "type of firmware installed (factory / custom)",
+                                "type": "string",
+                                "required": true
+                            },
+                            "nic": {
+                                "description": "OS name for network interface controller",
+                                "type": "string",
+                                "required": true
+                            },
+                            "mac": {
+                                "description": "unique hardware ID of NIC",
+                                "type": "string",
+                                "required": true
+                            },
+                            "ip": {
+                                "description": "IP address of ASIC (NIC)",
+                                "type": "string",
+                                "required": true
+                            },
+                            "netmask": {
+                                "description": "network mask",
+                                "type": "string",
+                                "required": true
+                            },
+                            "host": {
+                                "description": "hostname",
+                                "type": "string",
+                                "required": true
+                            },
+                            "dhcp": {
+                                "description": "indicator for whether network parameters are assigned statically, or by DHCP",
+                                "type": "boolean",
+                                "required": true
+                            },
+                            "gateway": {
+                                "description": "IP address of network gateway",
+                                "type": "string",
+                                "required": true
+                            },
+                            "dns": {
+                                "description": "IP address of DNS server",
+                                "type": "string",
+                                "required": true
+                            },
+                            "locate": {
+                                "description": "indicator for whether locator LED is currently on",
+                                "type": "boolean",
+                                "required": true
+                            },
+                            "rtpow": {
+                                "description": "5 minute average hashrate",
+                                "type": "string",
+                                "required": true
+                            },
+                            "avgpow": {
+                                "description": "30 minute average hashrate",
+                                "type": "string",
+                                "required": true
+                            },
+                            "reject": {
+                                "description": "share rejection rate",
+                                "type": "number",
+                                "required": true
+                            },
+                            "runtime": {
+                                "description": "uptime of miner",
+                                "type": "string",
+                                "required": true
+                            },
+                            "unit": {
+                                "description": "unit of hashrate stats",
+                                "type": "number",
+                                "required": true
+                            },
+                            "powstate": {
+                                "description": "indicator for whether 5 minute hashrate is healthy",
+                                "type": "boolean",
+                                "required": true
+                            },
+                            "netstate": {
+                                "description": "indicator for whether pool connection is healthy",
+                                "type": "boolean",
+                                "required": true
+                            },
+                            "fanstate": {
+                                "description": "indicator for whether fans are healthy",
+                                "type": "boolean",
+                                "required": true
+                            },
+                            "tempstate": {
+                                "description": "indicator for whether ASIC temperature is healthy",
+                                "type": "boolean",
+                                "required": true
+                            },
+                            "fans": {
+                                "description": "list of fan RPMs",
+                                "type": "array",
+                                "required": true,
+                                "contents": {
+                                    "type": "number"
+                                }
+                            },
+                            "pools": {
+                                "description": "list of stratum proxy / pool configurations",
+                                "type": "array",
+                                "required": true,
+                                "contents": {
+                                    "type": "object",
+                                    "properties": {
+                                        "accepted": {
+                                            "description": "number of submitted shares which have been accepted",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "addr": {
+                                            "description": "URL of host",
+                                            "type": "string",
+                                            "required": true
+                                        },
+                                        "connect": {
+                                            "description": "indicator for whether host is currently connected",
+                                            "type": "bool",
+                                            "required": true
+                                        },
+                                        "diff": {
+                                            "description": "stratum difficulty sent by host",
+                                            "type": "string",
+                                            "required": true
+                                        },
+                                        "jobrate": {
+                                            "description": "rate of jobs per minute being sent by the host",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "jobs": {
+                                            "description": "total number of jobs sent by the host",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "no": {
+                                            "description": "id of host config",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "pass": {
+                                            "description": "password for host connection",
+                                            "type": "string",
+                                            "required": true
+                                        },
+                                        "rejected": {
+                                            "description": "number of submitted shares which have been rejected",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "session_jobs": {
+                                            "description": "number of jobs sent by the host since last (re)connect",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "state": {
+                                            "description": "host connection state - 0: disconnected, 1: awaiting stratum connection, 2: awaiting network connection",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "uptime": {
+                                            "description": "time since last (re)connect to host",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "user": {
+                                            "description": "wallet / worker for host connection",
+                                            "type": "string",
+                                            "required": true
+                                        }
+                                    }
+                                }
+                            },
+                            "boards": {
+                                "description": "list of hashboards",
+                                "type": "array",
+                                "required": true,
+                                "contents": {
+                                    "type": "object",
+                                    "properties": {
+                                        "avgpow": {
+                                            "description": "30 minute hashrate for board",
+                                            "type": "number",
+                                            "required": false
+                                        },
+                                        "chipnum": {
+                                            "description": "number of hash chip slots on the board",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "chippll": {
+                                            "description": "hash chip clock frequency",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "chipsuc": {
+                                            "description": "number of hash chip slots populated",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "chiptmp": {
+                                            "description": "average temperature of all hash chips on this board",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "chipvoltage": {
+                                            "description": "average voltage of all hash chips on this board",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "default": {
+                                            "description": "indicator for whether board is being limited to stock clock and voltage settings",
+                                            "type": "boolean",
+                                            "required": true
+                                        },
+                                        "false": {
+                                            "description": "list of chips slots not populated",
+                                            "type": "array",
+                                            "required": true,
+                                            "contents": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "freq": {
+                                            "description": "board clock frequency",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "idealpow": {
+                                            "description": "expected hashrate for board at current clock setting",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "intmp": {
+                                            "description": "temperature reading from edge of board near intake",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "no": {
+                                            "description": "id of board",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "outtmp": {
+                                            "description": "temperature reading from edge of board near exhaust",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "rtpow": {
+                                            "description": "5 minute hashrate for board",
+                                            "type": "number",
+                                            "required": true
+                                        },
+                                        "state": {
+                                            "description": "indicator for whether board is currently hashing",
+                                            "type": "boolean",
+                                            "required": true
+                                        }
+                                    }
+                                }
+                            },
+                            "refTime": {
+                                "description": "timestamp of request",
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "data": {
+                        "model": "KS0",
+                        "online": true,
+                        "firmver1": "BOOT_2_0.BIN",
+                        "firmver2": "image_1.0",
+                        "softver1": "pbv077c_ks0miner",
+                        "softver2": "pbv077c_bg",
+                        "nic": "eth0",
+                        "mac": "00:0a:36:00:19:28",
+                        "ip": "10.1.2.2",
+                        "netmask": "255.255.255.240",
+                        "host": "ks0",
+                        "dhcp": false,
+                        "gateway": "10.1.2.1",
+                        "dns": "1.1.1.1",
+                        "locate": false,
+                        "rtpow": "150G",
+                        "avgpow": "145G",
+                        "reject": 0.000000,
+                        "runtime": "00:19:19:27",
+                        "unit": "G",
+                        "powstate": true,
+                        "netstate": true,
+                        "fanstate": false,
+                        "tempstate": true,
+                        "fans": [
+                            1877,
+                            1901,
+                            0,
+                            0
+                        ],
+                        "pools": [
+                            {
+                                "accepted": 33240.000000,
+                                "addr": "stratum+tcp://us.kaspa.herominers.com:1207",
+                                "connect": true,
+                                "diff": "274.88 G",
+                                "jobrate": 1.005556,
+                                "jobs": 65940.000000,
+                                "no": 1.000000,
+                                "pass": "x",
+                                "rejected": 7.000000,
+                                "sessionjobs": 7653.000000,
+                                "state": 1.000000,
+                                "uptime": 7259.000000,
+                                "user": "kaspa:pp5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.ks0"
+                            },
+                            {
+                                "accepted": 0.000000,
+                                "addr": "stratum+tcp://us1.kaspa-pool.org:4444",
+                                "connect": false,
+                                "diff": "",
+                                "jobrate": 0.000000,
+                                "jobs": 0.000000,
+                                "no": 2.000000,
+                                "pass": "x",
+                                "rejected": 0.000000,
+                                "sessionjobs": 0.000000,
+                                "state": 0.000000,
+                                "uptime": 0.000000,
+                                "user": "kaspa:pp5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.ks0"
+                            }
+                        ],
+                        "boards": [
+                            {
+                                "chipnum": 18.000000,
+                                "chippll": 1181.250000,
+                                "chipsuc": 1.000000,
+                                "chiptmp": 67.161591,
+                                "chipvoltage": 0.481587,
+                                "false": [
+                                    2,
+                                    3,
+                                    4,
+                                    5,
+                                    6,
+                                    7,
+                                    8,
+                                    9,
+                                    10,
+                                    11,
+                                    12,
+                                    13,
+                                    14,
+                                    15,
+                                    16,
+                                    17,
+                                    18
+                                ],
+                                "freq": 1180.000000,
+                                "idealpow": "1.18G",
+                                "intmp": 43.000000,
+                                "no": 1.000000,
+                                "outtmp": 56.000000,
+                                "rtpow": "37.68G",
+                                "state": true
+                            }
+                        ],
+                        "refTime": "2024-06-04 01:18:45 UTC"
+                    },
+                    "message": ""
+                }
+            }
+        },
+        "/api/timeseries": {
+            "description": "get series of data points for graphing",
+            "permissions": "view_miner",
+            "request": {
+                "properties": {
+                    "series": {
+                        "description": "name of series",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false,
+                        "restrictions": {
+                            "list": [
+                                "boardtemp",
+                                "chipclock",
+                                "chiptemp",
+                                "chipvoltage",
+                                "fanpwm",
+                                "fanrpm",
+                                "hashrate"
+                            ]
+                        }
+                    }
+                },
+                "example": "series=boardtemp"
+            },
+            "response": {
+                "properties": {
+                    "series": {
+                        "description": "up to three-dimensional list of series data per minute (5 minutes for hashrate), grouped by board when appropriate.  E.g. fanpwm is a one-dimensional list containing a single data point per minute as there is only a single PWM setting, while boardtemp is a three-dimensional list containing one data point per temp sensor, per board, per minute.",
+                        "type": "array",
+                        "required": true,
+                        "contents": {
+                            "type": "*"
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "series": [
+                        [
+                            [
+                                32,
+                                48,
+                                68,
+                                54,
+                                65
+                            ],
+                            [
+                                36,
+                                51,
+                                72,
+                                52,
+                                63
+                            ]
+                        ],
+                        [
+                            [
+                                32,
+                                48,
+                                70,
+                                55,
+                                65
+                            ],
+                            [
+                                36,
+                                51,
+                                74,
+                                56,
+                                66
+                            ]
+                        ]
+                    ]
+                }
+            }
+        },
+        "/api/machine": {
+            "description": "get machine state",
+            "permissions": "view_miner",
+            "response": {
+                "properties": {
+                    "machine": {
+                        "description": "machine state parent object",
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "device": {
+                                "description": "ASIC model name",
+                                "type": "string",
+                                "required": true
+                            },
+                            "mode": {
+                                "description": "machine mode (sleep / normal)",
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0, 
+                    "machine": {
+                        "device": "KS0",
+                        "mode": "sleep"
+                    }
+                }
+            }
+        },
+        "/api/machine/reboot": {
+            "description": "reboot the machine",
+            "permissions": "edit_miner"
+        },
+        "/api/machine/shutdown": {
+            "description": "power off the machine",
+            "permissions": "edit_miner"
+        },
+        "/api/machine/sleep": {
+            "description": "put the machine in sleep mode",
+            "permissions": "edit_miner"
+        },
+        "/api/machine/wake": {
+            "description": "wake the machine from sleep mode",
+            "permissions": "edit_miner"
+        },
+        "/api/machine/reset": {
+            "description": "reset machine to factory settings",
+            "permissions": "edit_all"
+        },
+        "/api/machine/ping": {
+            "description": "send healthcheck request"
+        },
+        "/api/machine/locate": {
+            "description": "toggle locator LED on machine",
+            "permissions": "edit_all"
+        },
+        "/api/user/create": {
+            "description": "create user account",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "username": {
+                        "description": "user login name",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "password": {
+                        "description": "user password",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "roles": {
+                        "description": "role (collection of permissions) assigned to this user",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false,
+                        "restrictions": {
+                            "other": "list of values returned by /api/user/roles"
+                        }
+                    }
+                },
+                "example": "username=pbfarmer&password=password&roles=limited_user"
+            }
+        },
+        "/api/user/list": {
+            "description": "list user accounts",
+            "permissions": "view_all",
+            "response": {
+                "properties": {
+                    "users": {
+                        "description": "list of users",
+                        "type": "array",
+                        "required": true,
+                        "contents": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "description": "record id",
+                                    "type": "number",
+                                    "required": true
+                                },
+                                "username": {
+                                    "description": "user login name",
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "password": {
+                                    "description": "user password (null)",
+                                    "type": null,
+                                    "required": true
+                                },
+                                "roles": {
+                                    "description": "role (collection of permissions) assigned to this user",
+                                    "type": "string",
+                                    "required": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "users": [
+                        {
+                            "id": 1,
+                            "username": "admin",
+                            "password": null,
+                            "roles": "administrator"
+                        },
+                        {
+                            "id": 2,
+                            "username": "pbfarmer",
+                            "password": null,
+                            "roles": "limited_user"
+                        }
+                    ]
+                }
+            }
+        },
+        "/api/user/update": {
+            "description": "update user account",
+            "permissions": "edit_all,edit_owned",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "username": {
+                        "description": "user login name",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "password": {
+                        "description": "user password",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "roles": {
+                        "description": "role (collection of permissions) assigned to this user",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false,
+                        "restrictions": {
+                            "other": "list of values returned by /api/user/roles"
+                        }
+                    }
+                },
+                "example": "id=2&username=pbfarmer&password=password&roles=limited_user"
+            }
+        },
+        "/api/user/delete": {
+            "description": "delete user account",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false,
+                        "restrictions": {
+                            "min": 2
+                        }
+                    }
+                },
+                "example": "id=2"
+            }
+        },
+        "/api/user/roles": {
+            "description": "list of valid roles to be assigned to a user",
+            "permissions": "view_all",
+            "response": {
+                "properties": {
+                    "roles": {
+                        "description": "assignable roles list",
+                        "type": "array",
+                        "required": true,
+                        "contents": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "abilities": [
+                        "administrator",
+                        "guest",
+                        "limited_user",
+                        "user"
+                    ]
+                }
+            }
+        },
+        "/api/token/create": {
+            "description": "create API token",
+            "permissions": "edit_owned",
+            "request": {
+                "properties": {
+                    "abilities": {
+                        "description": "comma separated list of permissions granted to this token",
+                        "type": "string",
+                        "required": true,
+                        "multiple": true,
+                        "restrictions": {
+                            "other": "list of values returned by /api/token/abilities"
+                        }
+                    },
+                    "expires": {
+                        "description": "date as epoch in seconds at which this token expires",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false,
+                        "restrictions": {
+                            "min": 0
+                        }
+                    }
+                },
+                "example": "abilities=edit_owned,view_miner,view_owned,view_pools&expires=1748761200"
+            }
+        },
+        "/api/token/list": {
+            "description": "list API tokens",
+            "permissions": "view_owned",
+            "response": {
+                "properties": {
+                    "tokens": {
+                        "description": "list of API tokens",
+                        "type": "array",
+                        "required": true,
+                        "contents": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "description": "record id",
+                                    "type": "number",
+                                    "required": true
+                                },
+                                "token": {
+                                    "description": "API token",
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "user": {
+                                    "description": "id of user to whom this token belongs",
+                                    "type": "number",
+                                    "required": true
+                                },
+                                "abilities": {
+                                    "description": "comma separated list of permissions granted to this token",
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "expires": {
+                                    "description": "date as epoch in seconds at which this token expires",
+                                    "type": "number",
+                                    "required": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "tokens": [
+                        {
+                            "id": 1,
+                            "token": "5b281acc-de86-41bb-b14d-e266d9c9edbd",
+                            "user": 1,
+                            "expires": 1748761200,
+                            "abilities": "edit_all,edit_miner,edit_owned,edit_pools,view_all,view_miner,view_owned,view_pools"
+                        }
+                    ]
+                }
+            }
+        },
+        "/api/token/update": {
+            "description": "update API token",
+            "permissions": "edit_owned",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "abilities": {
+                        "description": "comma separated list of permissions granted to this token",
+                        "type": "string",
+                        "required": false,
+                        "multiple": true,
+                        "restrictions": {
+                            "other": "list of values returned by /api/token/abilities"
+                        }
+                    },
+                    "expires": {
+                        "description": "date as epoch in seconds at which this token expires",
+                        "type": "number",
+                        "required": false,
+                        "multiple": false,
+                        "restrictions": {
+                            "min": 0
+                        }
+                    }
+                },
+                "example": "id=1&abilities=edit_owned,view_miner,view_owned,view_pools&expires=1748761200"
+            }
+        },
+        "/api/token/delete": {
+            "description": "delete API token",
+            "permissions": "edit_owned",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    }
+                },
+                "example": "id=1"
+            }
+        },
+        "/api/token/abilities": {
+            "description": "list of valid permissions user can assign to a token",
+            "permissions": "view_owned",
+            "response": {
+                "properties": {
+                    "abilities": {
+                        "description": "assignable permissions list",
+                        "type": "array",
+                        "required": true,
+                        "contents": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "abilities": [
+                        "edit_miner",
+                        "view_all",
+                        "edit_owned",
+                        "edit_all",
+                        "view_miner",
+                        "view_pools",
+                        "view_owned",
+                        "edit_pools"
+                    ]
+                }
+            }
+        },
+        "/api/pool/create": {
+            "description": "create pool / stratum proxy config",
+            "permissions": "edit_pools",
+            "request": {
+                "properties": {
+                    "pool_address": {
+                        "description": "pool / stratum proxy address",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "wallet": {
+                        "description": "miner wallet / worker",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "pool_password": {
+                        "description": "mining pool password",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    }
+                },
+                "example": "pool_address=stratum%2Btcp%3A%2F%2Fus1.kaspa-pool.org%3A4444&wallet=kaspa%3App5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.worker1&pool_password=x"
+            }
+        },
+        "/api/pool/list": {
+            "description": "list pool / stratum proxy configs",
+            "permissions": "view_pools",
+            "response": {
+                "properties": {
+                    "pools": {
+                        "description": "list of pool / stratum proxy configs",
+                        "type": "array",
+                        "required": true,
+                        "contents": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "description": "record id",
+                                    "type": "number",
+                                    "required": true
+                                },
+                                "pool_address": {
+                                    "description": "pool / stratum proxy address",
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "wallet": {
+                                    "description": "miner wallet / worker",
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "pool_password": {
+                                    "description": "pool / stratum proxy password",
+                                    "type": "string",
+                                    "required": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "pools": [
+                        {
+                            "id": 1,
+                            "pool_address": "stratum+tcp://us1.kaspa-pool.org:4444", 
+                            "wallet": "kaspa:pp5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.worker1",
+                            "pool_password": "x"
+                        }
+                    ]
+                }
+            }
+        },
+        "/api/pool/update": {
+            "description": "update pool / stratum proxy config",
+            "permissions": "edit_pools",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "pool_address": {
+                        "description": "pool / stratum proxy address",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "wallet": {
+                        "description": "miner wallet / worker",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "pool_password": {
+                        "description": "pool / stratum proxy password",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    }
+                },
+                "example": "id=1&pool_address=stratum%2Btcp%3A%2F%2Fus1.kaspa-pool.org%3A4444&wallet=kaspa%3App5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.worker1&pool_password=x"
+            }
+        },
+        "/api/pool/delete": {
+            "description": "delete pool / stratum proxy config",
+            "permissions": "edit_pools",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    }
+                },
+                "example": "id=1"
+            }
+        },
+        "/api/clock": {
+            "description": "get clock config",
+            "permissions": "view_miner",
+            "response": {
+                "properties": {
+                    "clock": {
+                        "description": "clock config parent object",
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "base": {
+                                "description": "default clock frequency",
+                                "type": "number",
+                                "required": true
+                            },
+                            "offset": {
+                                "description": "increase / decrease in clock frequency from base",
+                                "type": "number",
+                                "required": true
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0, 
+                    "clock": {
+                        "base": 780,
+                        "offset": 400
+                    }
+                }
+            }
+        },
+        "/api/clock/update": {
+            "description": "set clock offset",
+            "permissions": "edit_miner",
+            "request": {
+                "properties": {
+                    "offset": {
+                        "description": "increase / decrease in clock frequency from base",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    }
+                },
+                "example": "offset=400"
+            }
+        },
+        "/api/voltage": {
+            "description": "get voltage config",
+            "permissions": "view_miner",
+            "response": {
+                "properties": {
+                    "voltage": {
+                        "description": "voltage config parent object",
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "base": {
+                                "description": "default voltage level",
+                                "type": "number",
+                                "required": true
+                            },
+                            "offset": {
+                                "description": "increase / decrease in voltage level from base",
+                                "type": "number",
+                                "required": true
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0, 
+                    "voltage": {
+                        "base": 500,
+                        "offset": 13
+                    }
+                }
+            }
+        },
+        "/api/voltage/update": {
+            "description": "set voltage offset",
+            "permissions": "edit_miner",
+            "request": {
+                "properties": {
+                    "offset": {
+                        "description": "increase / decrease in voltage (mV) from base",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    }
+                },
+                "example": "offset=13"
+            }
+        },
+        "/api/fan": {
+            "description": "get fan config",
+            "permissions": "view_miner",
+            "response": {
+                "properties": {
+                    "fan": {
+                        "description": "fan config parent object",
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "min": {
+                                "description": "minimum PWM for temp mode",
+                                "type": "number",
+                                "required": false
+                            },
+                            "mode": {
+                                "description": "fan mode (auto, fixed, or temp)",
+                                "type": "string",
+                                "required": true
+                            },
+                            "ratio": {
+                                "description": "PWM for fixed mode",
+                                "type": "number",
+                                "required": false
+                            },
+                            "target": {
+                                "description": "temperature target for temp mode",
+                                "type": "number",
+                                "required": false
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0, 
+                    "fan": {
+                        "min": 30,
+                        "mode": "temp",
+                        "ratio": 30,
+                        "target": 65
+                    }
+                }
+            }
+        },
+        "/api/fan/update": {
+            "description": "set fan config",
+            "permissions": "edit_miner",
+            "response": {
+                "properties": {
+                    "min": {
+                        "description": "minimum PWM for temp mode",
+                        "type": "number",
+                        "required": false,
+                        "multiple": false,
+                        "restrictions": {
+                            "max": 100,
+                            "min": 0
+                        }
+                    },
+                    "mode": {
+                        "description": "fan mode",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false,
+                        "restrictions": {
+                            "list": [
+                                "auto",
+                                "fixed",
+                                "temp"
+                            ]
+                        }
+                    },
+                    "ratio": {
+                        "description": "PWM for fixed mode",
+                        "type": "number",
+                        "required": false,
+                        "multiple": false,
+                        "restrictions": {
+                            "max": 100,
+                            "min": 0
+                        }
+                    },
+                    "target": {
+                        "description": "temperature target for temp mode",
+                        "type": "number",
+                        "required": false,
+                        "multiple": false,
+                        "restrictions": {
+                            "min": 0
+                        }
+                    }
+                },
+                "example": "min=30&mode=temp&target=65"
+            }
+        },
+        "/api/network": {
+            "description": "get network config",
+            "permissions": "view_miner",
+            "response": {
+                "properties": {
+                    "network": {
+                        "description": "network config parent object",
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "nic": {
+                                "description": "OS name for network interface controller",
+                                "type": "string",
+                                "required": true
+                            },
+                            "mac": {
+                                "description": "unique hardware ID of NIC",
+                                "type": "string",
+                                "required": true
+                            },
+                            "ip": {
+                                "description": "IP address of ASIC (NIC)",
+                                "type": "string",
+                                "required": true
+                            },
+                            "netmask": {
+                                "description": "network mask",
+                                "type": "string",
+                                "required": true
+                            },
+                            "host": {
+                                "description": "hostname",
+                                "type": "string",
+                                "required": true
+                            },
+                            "dhcp": {
+                                "description": "indicator for whether network parameters are assigned statically, or by DHCP",
+                                "type": "boolean",
+                                "required": true
+                            },
+                            "gateway": {
+                                "description": "IP address of network gateway",
+                                "type": "string",
+                                "required": true
+                            },
+                            "dns": {
+                                "description": "IP address of DNS server",
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "network": {
+                        "nic": "eth0",
+                        "mac": "00:0a:36:00:19:28",
+                        "ip": "10.1.2.2",
+                        "netmask": "255.255.255.240",
+                        "host": "ks0",
+                        "dhcp": false,
+                        "gateway": "10.1.2.1",
+                        "dns": "1.1.1.1"
+                    }
+                }
+            }
+        },
+        "/api/network/update": {
+            "description": "set network config",
+            "permissions": "edit_all",
+            "response": {
+                "properties": {
+                    "ip": {
+                        "description": "IP address of ASIC (NIC)",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "netmask": {
+                        "description": "network mask",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "host": {
+                        "description": "hostname",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "dhcp": {
+                        "description": "indicator for whether network parameters are assigned statically, or by DHCP",
+                        "type": "boolean",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "gateway": {
+                        "description": "IP address of network gateway",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "dns": {
+                        "description": "IP address of DNS server",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    }
+                },
+                "example": "ip=10.1.2.2&netmask=255.255.255.240&host=ks0&dhcp=false&gateway=10.1.2.1&dns=1.1.1.1"
+            }
+        },
+        "/api/network/updateca": {
+            "description": "update CA certificate or key file",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "filetype": {
+                        "description": "type of file being uploaded",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false,
+                        "restrictions": {
+                            "list": [
+                                "cert",
+                                "key"
+                            ]
+                        }
+                    },
+                    "file": {
+                        "description": "CA certificate or private key file to upload",
+                        "type": "binary",
+                        "required": true,
+                        "multiple": false
+                    }
+                }
+            }
+        },
+        "/api/network/regencert": {
+            "description": "regenerate TLS certificate",
+            "permissions": "edit_all"
+        },
+        "/api/split/create": {
+            "description": "create hashrate split",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "pool_address": {
+                        "description": "pool / stratum proxy address",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "wallet": {
+                        "description": "miner wallet / worker",
+                        "type": "string",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "percent": {
+                        "description": "hashrate percent",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false,
+                        "restrictions": {
+                            "min": 0,
+                            "max": 100
+                        }
+                    },
+                    "pool_password": {
+                        "description": "pool / stratum proxy password",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    }
+                },
+                "example": "pool_address=stratum%2Btcp%3A%2F%2Fus1.kaspa-pool.org%3A4444&wallet=kaspa%3App5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.worker1&percent=5&pool_password=x"
+            }
+        },
+        "/api/split/list": {
+            "description": "list hashrate splits",
+            "permissions": "view_all",
+            "response": {
+                "properties": {
+                    "splits": {
+                        "description": "list of active hashrate splits",
+                        "type": "array",
+                        "required": true,
+                        "contents": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "description": "record id",
+                                    "type": "number",
+                                    "required": true
+                                },
+                                "pool_address": {
+                                    "description": "pool / stratum proxy address",
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "wallet": {
+                                    "description": "miner wallet / worker",
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "percent": {
+                                    "description": "hashrate percent",
+                                    "type": "number",
+                                    "required": true
+                                },
+                                "pool_password": {
+                                    "description": "pool / stratum proxy password",
+                                    "type": "string",
+                                    "required": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "error": 0,
+                    "splits": [
+                        {
+                            "id": 1,
+                            "pool_address": "stratum+tcp://us1.kaspa-pool.org:4444", 
+                            "wallet": "kaspa:pp5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.worker1",
+                            "percent": 5,
+                            "pool_password": "x"
+                        }
+                    ]
+                }
+            }
+        },
+        "/api/split/update": {
+            "description": "update hashrate split",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    },
+                    "pool_address": {
+                        "description": "pool / stratum proxy address",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "wallet": {
+                        "description": "miner wallet / worker",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    },
+                    "percent": {
+                        "description": "hashrate percent",
+                        "type": "number",
+                        "required": false,
+                        "multiple": false,
+                        "restrictions": {
+                            "min": 0,
+                            "max": 100
+                        }
+                    },
+                    "pool_password": {
+                        "description": "pool / stratum proxy password",
+                        "type": "string",
+                        "required": false,
+                        "multiple": false
+                    }
+                },
+                "example": "id=1&pool_address=stratum%2Btcp%3A%2F%2Fus1.kaspa-pool.org%3A4444&wallet=kaspa%3App5jlmmrqm09lzc850n5ddkvfjd05rn2gh98az4xzkywqmth7mqq268urakje.worker1&percent=5&pool_password=x"
+            }
+        },
+        "/api/split/delete": {
+            "description": "delete hashrate split",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "id": {
+                        "description": "record id",
+                        "type": "number",
+                        "required": true,
+                        "multiple": false
+                    }
+                },
+                "example": "id=1"
+            }
+        },
+        "/api/firmware/update": {
+            "description": "update firmware",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "file": {
+                        "description": "firmware file to upload",
+                        "type": "binary",
+                        "required": true,
+                        "multiple": false
+                    }
+                }
+            }
+        },
+        "/api/brand/update": {
+            "description": "update branding file",
+            "permissions": "edit_all",
+            "request": {
+                "properties": {
+                    "file": {
+                        "description": "branding image (112x60 PNG) to upload",
+                        "type": "binary",
+                        "required": true,
+                        "multiple": false
+                    }
+                }
+            }
+        }
+    }
+}

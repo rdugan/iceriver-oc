@@ -1,5 +1,5 @@
 # IceRiver Overclocking Firmware
-Modified firmware for all IceRiver ASICs, adding overclocking, voltage control and other goodies
+Modified firmware for all IceRiver ASICs, adding clock and voltage control, sensor graphing, properly secured login and API access, and other goodies.
 
 Customizable OC/OV, small fee benefitting the community, no unnecessary changes to your device.
 
@@ -21,13 +21,20 @@ If you have any issues, finding me (pbfarmer) in the Kaspa Discord will probably
     - [Graphing of chip metrics and longer term hashrates](#graphing-of-chip-metrics-and-longer-term-hashrates)
     - [Uptime and job rate on pool status](#uptime-and-job-rate-on-pool-status)
     - [Chip temperature monitoring](#chip-temperature-monitoring)
-    - [Real-time voltage and clock display with clock ramping indicator](#real-time-voltage-and-clock-display-with-clock-ramping-indicator)
+    - [Real-time voltage and clock display](#real-time-voltage-and-clock-display)
     - [Primary pool health monitor](#primary-pool-health-monitor)
-    - [General UI improvements](#general-ui-improvements)
-  - [Stability improvements](#stability-improvements)
+  - [API](#api)
+  - [General UI improvements](#general-ui-improvements)
+  - [Stability and security improvements](#stability-and-security-improvements)
     - [Fix for web server crashes](#fix-for-web-server-crashes)
+    - [New auth/auth routines](#new-authauth-routines)
+    - [TLS certificate management](#tls-certificate-management)
     - [Healthcheck loop](#healthcheck-loop)
 - [Installation](#installation)
+  - [Power and metering](#power-and-metering)
+  - [Cooling](#cooling)
+  - [Tuning](#tuning)
+  - [Reproducing results from other firmware](#reproducing-results-from-other-firmware)
 - [Usage Tips](#usage-tips)
 - [Let's Talk About Hashrates](#lets-talk-about-hashrates)
 
@@ -46,14 +53,16 @@ kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y
 <br>
 
 # Fee
-* 1% fee directed to the official Kaspa Development Fund.
-* Current agreement with fund treasurers that half will be sent back to myself until further notice, in order to recoup development/maintenance costs.
-* Fee traffic is directed to *.kaspa.pool.pbfarmer.cc, which is currently just an alias for Herominers (e.g. us.kaspa.pool.pbfarmer.cc => us.kaspa.herominers.com).  If the system is unable to connect to one of the 5 closest Herominers pools, OC will be removed until a connection is once again available.  A warning indicator will appear in the UI in such situations.
+* While the fee remains 1% for the base version, unfortunately the previous 50/50 split with the Kaspa Development Fund needs to be adjusted.  Development and support of this product has become much more than a full time job, while at the same time the fee income is declining rapidly due to reward reductions and nethash growth.  As a result, the split will be restructured as 80/20 for the first 600K KAS/yr, while any proceeds beyond that will continue to be split 50/50 as before.  Please understand this decision is not taken lightly, but is the only chance I have to continue my current level of involvement with the product.  Should the price of KAS appreciate significantly sooner than expected, this arrangement will of course be reconsidered.  For reference / transparency, the total fee income as of 2024-07-30 (over ~8 months) has been 314K KAS, half of which has been directed to the Kaspa Dev Fund.
+* A commercial/hosting version is now available with a current fee of 1.33%.  This version includes additional features useful for larger deployments, such as multiple user management, hashrate splitting (e.g. for setting up hosting fees), and brand/logo replacement.  This fee will increase in future releases as more features are added (such as aggregate dashboards, auto-tuning, etc), but is expected to be capped at 2%.
+* Fee traffic is directed to *.kaspa.pool.pbfarmer.cc, which is currently just an alias for Herominers (e.g. us.kaspa.pool.pbfarmer.cc => us.kaspa.herominers.com).  If the system is unable to connect to one of the 5 closest Herominers pools, OC will be removed and performance reduced until a connection is once again available.  A warning indicator will appear in the UI in such situations.
+
 <br>
 
 # Known Issues
 * IceRiver ASICs insist on using static IP settings, even after you set them to DHCP.  If these IPs are not reserved in your router, at some point your router may assign these IPs to another device in your network, and you will have network / connection problems.  The solution to this is to find the MAC address to IP address mapping table in the LAN/DHCP section of your router settings, and add a mapping for every one of your ASICs (the MAC address should be on a sticker on the outside of your ASIC.)  Once you've added these mappings, restart the router, update every ASIC to use DHCP, and restart all of the ASICs.  Now your ASICs should acquire the fixed IP via DHCP, and even if/when they revert to static IPs, it should no longer cause issues, since the router has reserved the IP(s).
-* A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining (even after following the previous steps), check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the AIProtection features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
+* At some point a widespread DNS update seems to have affected multiple ISPs, which caused them to 'black-hole' traffic to *.pbfarmer.cc.  This meant that while the pool connections succeeded, all subsequent traffic disappeared into the void.  If you are seeing a similar situation where you appear to be connected to a pool, but are not getting any jobs or producing shares, try updating your DNS server (preferably in your router, but also possible on the ASIC) to a public option such as Google (8.8.8.8, 8.8.4.4), Cloudflare (1.1.1.1), etc.
+* A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining (even after following the previous steps), check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the 'AIProtection' features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
 * There may be incompatiblities between HiveOS/AsicHub or other 3rd party management/monitoring tools and this firmware.  Many of these tools scrape the ASIC UI to get data, and since I've signficantly modified the UI, their scrapers may no longer be compatible.  The only way to address this is for the management tools to migrate to the available API.
 
 <br>
@@ -68,11 +77,9 @@ kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y
 
 ![Performance Settings](/docs/images/iceriver-oc_settings.png)
 
-Clock and voltage settings have been added to the 'Mining setting' page.  Clock can be increased/decreased to any integer value (within hardware limits).  Changes take effect immediately without restart, but note that clock increases are gradually applied in increments of 25Mhz per 30s (25Mhz per 2m for KS3/M/L and KS0 Pro due to slow feedback from the hardware).  As a result, it may take some time to get to full speed, possibly even ~10 minutes, depending on how large of an offset you choose.  
+Clock and voltage settings have been added to the 'Miner' page.  Clock can be increased/decreased to any integer value (within hardware limits).  Changes take effect immediately without restart, but note that clock increases are gradually applied in increments of 25Mhz per 30s.  As a result, it may take some time to get to full speed, possibly even ~10 minutes, depending on how large of an offset you choose.  
 
-KS3/M/L and KS0 Pro models seem to have their own internal hardware delay, where clock changes do not register for roughly 2 minutes normally, while taking about 5 minutes after a reboot.
-
-Voltage can be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally for everything but KS0 Pro.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. 
+Voltage can also be increased/decreased to any integer value (within hardware limits), with changes taking effect immediately.  Settings will be rounded down to the nearest multiple of 6.25mV internally for everything but KS0 Pro.  A simple model to keep in mind is that for every 25mv increase, the proper increments are 7mv-6mv-6mv-6mv, or for example, 7, 13, 19, 25 for the first 25mv. 
 
 For KS0 Pro, voltage can be adjusted in 2mV increments.  
 
@@ -88,13 +95,13 @@ VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
 
 ![Performance Settings](/docs/images/iceriver-oc_fan_settings.png)
 
-A new fan mode has been added which automatically adjusts fan speed to maintain a max chip temperature.  Temps are read every 10s for KS0/1/2 and fan speed is adjusted as necessary.  
+A new fan mode has been added which automatically adjusts fan speed to maintain a max hash chip temperature.  Temps are read every 10s and fan speed is adjusted as necessary.  
 
-Unfortunately, chip temps are only updated by the ASIC every 2minutes for KS3/M/L and KS0 Pro, so fan adjustments for these models are much slower.  While the new fan mode may still be used for those models, it is suggested to use a high minimum fan speed (maybe >= 70%), so that periods of highly dynamic temperature ranges (such as startup) do not cause excessive chip temps while the fan control is waiting on feedback.
+It is suggested to use a minimum fan speed within maybe 75% of the speed the fans normally run, so that periods of highly dynamic temperature ranges (such as startup) do not allow excessive power stage temps while the hash chips are warming up.  For example, if the fans would settle around 80% during normal operating temps, a min fan speed of 60% may be appropriate.
 
 Please note, this setting does not guarantee the set temperature.  It may overshoot during startup or other dynamic periods, but it should stabilize at or near (within a few degrees) the requested temperature.
 
-Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
+Fixed fan speeds will also now be reapplied at startup, after a ~1-2m delay.
 
 <br>
 
@@ -108,7 +115,7 @@ Fixed/manual fan speeds will now be reapplied at startup, after a ~1m delay.
 
 ![Home Page](/docs/images/iceriver-oc_home.png)
 
-Two hours of graphing has been added for all chip metrics, with filters for summaries (per board min/max/avg), board, or all chips.  Additionally, board temp (intake/exhaust) graphs have been added for all models, which also include power stage (driver) temps for KS0/Pro, KS1, and KS2.  In summary mode, the max power stage temp is shown for each board, while in board mode, the max power stage temp is shown for each group/controller (PSG).  Max recommended operating temp is 125C according to the chip documentation, though it is probably wise to keep a healthy margin below this temp.  
+Two hours of graphing has been added for all chip metrics, with filters for summaries (per board min/max/avg), board, or all chips.  Additionally, board temp graphs have been added for all models, which includes intake, and exhaust sensor temps, as well as power stage (driver) temps for KS0/Pro/Ultra, KS1, and KS2.  In summary mode, the max power stage temp is shown for each board, while in board mode, the max power stage temp is shown for each group/controller (PSG).  Max recommended operating temp is 125C according to the chip documentation, though it is probably wise to keep a healthy margin below this temp.  
 
 Please be aware, that temperature is not the only consideration for healthy operation.  Power/current draw is also a concern, for which we don't currently have visibility or specifications.
 
@@ -118,13 +125,13 @@ Mouseover tooltips have been synchronized across all graphs, to help with diagno
 
 Instantaneous values are shown in the legend, and individual lines can be disabled/enabled by clicking on the labels.  Graph scales are no longer zero based, and adjust depending on which lines are displayed, meaning they are no longer artifically flattend by poor resolution, and you can actually see the variability in each measurement.
 
-*Hopefully this helps clear up how useless 5m readings really are.*
+*Hopefully this helps clear up how variable 5m readings really are.*
 
 <br>
 
 ### Uptime and job rate on pool status
 
-![Home Page](/docs/images/iceriver-oc_pools_fans.png)
+![Home Page](/docs/images/iceriver-oc_overview_stats.png)
 
 The uninterrupted uptime, and job issuance rate are added to the pool stats section.  Job rate is simply an additional health indicator of a pool connection - currently job rates for the Kaspa network should be around 1 per second (soon to be 10/s with Rust deployment) with a variation of roughly +/- 15%.  While job rates consistently higher or lower than this should not technically affect your earnings due to Kaspa's block acceptance policy (assuming the pool is not unnecessarily rejecting 'old' shares), it is a signal that the pool may not be functioning properly, and you may want to alert the pool operator, or possibly find another option.
 
@@ -135,14 +142,14 @@ Multiple status indicators have been added to the pool section to help diagnose 
 <br>
 
 ### Chip temperature monitoring
-The per-board max temp of the actual asic chips is added to the board stats section.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >85C warning zone, >95C danger zone, >105C critical zone).  
+The per-board max temp of the hash chips is added to the board stats section.  No guidance has been provided by IceRiver as to safe limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >85C warning zone, >95C danger zone, >105C critical zone).  
 
-Anecdotal evidence from users seems to indicate chip temps in the range of 70-80C provided optimal hashrates, at least on KS1/2/3*.  For KS0/PRO, this may be hotter than desired, as exhaust temps (primarily reflecting power stage temps) tend to be higher due to the tight enclosure and lack of airflow.
+Anecdotal evidence from users seems to indicate chip temps in the range of 70-80C provided optimal hashrates, at least on KS1/2/3*.  For KS0/PRO, this may be hotter than desired, as exhaust temps (primarily reflecting power stage temps) tend to be higher due to the tight enclosure and lack of airflow.  80c chip temps appear to be ideal for KS0 Ultras for maximum hashrate.
 
 <br>
 
-### Real-time voltage and clock display with clock ramping indicator
-The per board real-time average chip voltage and clock values are added to the board stats section.  A spinning indicator is added next to the clocks while they are still ramping, indicating that hashrate has not yet reached the target.  Please note that real-time voltage will never match your setting - drivers under load experience voltage drop, meaning the running voltage will always be below the set voltage, with more load causing a greater drop.
+### Real-time voltage and clock display
+The per board real-time average chip voltage and clock values are added to the board stats section.  A spinning indicator is added while clocks are still ramping, indicating that hashrate has not yet reached the target.  Please note that real-time voltage will never match your setting - drivers under load experience voltage drop, meaning the running voltage will always be below the set voltage, with more load causing a greater drop.
 
 <br>
 
@@ -151,21 +158,52 @@ Health-check loop run on primary pool availability.  If miner has switched to on
 
 <br>
 
-### General UI improvements
-Dark mode!
+## API
 
-Numerous other css/js fixes vs stock firmware.  This is a constant work-in-progress.
+While the previously available API on port 4111 is still available, a new rationalized API including all of the additional features from the UI is now avaiable over https (port 443).
+
+Full documentation is available in [json format](/docs/apidoc.json).
+
+<br>
+
+## General UI improvements
+* Dark mode!
+* Auto refresh controls
+* Responsive design
+* Numerous other css/js fixes vs stock firmware.  This is a constant work-in-progress.
 
 <br>
 
 <br>
 
-## Stability improvements
-
-<br>
+## Stability and security improvements
 
 ### Fix for web server crashes
-Replaced stock web server with updated and production environment targeted version, while adding cache/memory control configuration.  This should address the issues seen by users of HiveOS and other external monitoring tools that caused the web server to crash after too many page loads (resulting in the ASIC UI being unavailable.)
+Replaced stock web server with updated and production environment targeted version, added cache/memory control configuration, and fixed memory leaks.  This should address the issues seen by users of HiveOS and other external monitoring tools that caused the web server to crash after too many page loads (resulting in the ASIC UI being unavailable.)
+
+<br>
+
+### New auth/auth routines
+The authentication and authorization controls have been completely replaced, and all traffic redirected over https.  This means forwarding the http(s) traffic through your firewall for off-site monitoring should be much safer (though I would still not necessarily recommend this - simply due to best security practices...) Login is no longer transmitted over unsecured http, and people can no longer hijack your asic simply by setting a cookie to skip login.  The random 'login incorrect' messages due to file system corruption should also be a thing of the past.
+
+Additionally the redesigned API has been secured w/ an access token, through which granular permissions can be assigned.
+
+![Account Page](/docs/images/iceriver-oc_account.png)
+
+Just as you would update the login password, PLEASE DELETE/REPLACE THIS API TOKEN if you plan on exposing your machine publicly, as it is the same across all machines by default.
+
+<br>
+
+### TLS certificate management
+The TLS certificates (and certificate authority) for https are automatically generated on the ASIC, meaning they will cause 'Not secure' warnings in your browser since they are not from a well known authority.  While harmless, these warnings can be annoying, so the firmware provides the ability to download the CA certificate so it can be uploaded into your browsers certificate store.
+
+![TLS Certs](/docs/images/iceriver-oc_tls.png)
+
+To do so in Chrome, for instance, go to chrome://settings/security, click on 'Manage Certificates', select the 'Trusted Root Certification Authorities' tab (or just 'Authorities' for Linux), and click on the import button.  After restarting your browser, you should no longer see the 'Not secure' warning.
+
+If you have multiple ASICs, you will have a different CA for each by default.  However, instead of adding each of these to your browser(s) or other devices, you can propagate a single CA across all ASICs by downloading both the CA certificate and CA key from one ASIC, uploading both files to all of your other ASICs, then regenerating the certificate on each of those other ASICs.
+
+If you access your ASIC via a domain name or multiple IPs, you can also add these to the TLS certificate by listing them in the 'Regenerate certificate' field and clicking 'regenerate'.
 
 <br>
 
@@ -177,7 +215,9 @@ Additionally, the 'reset' executable that has been found to randomly disappear f
 <br>
 
 # Installation
-This is a standard firmware update package, including/improving on the latest IceRiver firmware, and applied just as official firmware would be.  Applying over any previous updates should work.
+DO NOT install over the xyys (including tswift branded) firmware on KS0 Ultras or KS5* models.  Please make sure to follow his uninstallation instructions before installing this or any other firmware!
+
+This is a standard firmware update package, including/improving on the latest IceRiver firmware, and applied just as official firmware would be.  Applying over any previous updates should work for KS0/Pro, KS1, KS2, and KS3* models. Applying over stock, or previous versions of this firmware should also work for KS0 Ultra, and KS5* models.
 
 However, if you run into problems, try the following process:
 * Restore factory settings
@@ -191,9 +231,23 @@ Also, make sure to redo your pool settings, as they will have been reset to the 
 <br>
 
 # Usage Tips
-It is highly recommended you have a power meter attached to your machines, to ensure you are within your PSU limits.  This is especially true for KS3M, which has very little PSU headroom even at stock settings.
 
-KS0 Pro ASICs need special attention to cooling.  The power stages on these already run very hot, so hardware modifications for improved cooling are highly recommended - including heatsinks, and better airflow.
+### Power and metering
+Laptop power supplies for KS0/Pro/Ultra models should generally be 19.5V with 5.5mm x 2.5mm connectors, but the amp rating can vary depending on your OC targets.  However, barrel connectors of this size tend to be rated for either 5 or 10a, and it is unlikely IceRiver used 5a options, so it would be a reasonable assumption that they used 10a (7.5a is another possibility).  This means that any adapter over 200w is likely exceeding the rating of the socket, such that the plug could melt or even catch fire, if not actively cooled (even then the risk remains).  Please be extremely careful should you choose to use one of the higher power laptop charger options.
+
+It is highly recommended you have a power meter attached to your machines, to ensure you are within your PSU limits.  This is especially true for KS3* and KS5* models, which have very little PSU headroom even at stock settings, as well as KS0* models due to the wide range of power supplies.
+
+<br>
+
+### Cooling 
+
+KS0 Pro and Ultra models need special attention to cooling.  The power stages on these already run very hot, so hardware modifications for improved cooling are highly recommended - including heatsinks, and better airflow.
+
+Hash chips on all models tend to perform best in the 75-80c range, but this is especially true for the KS0 Ultra, where even reducing from 80c to 75c, I've experienced a drop in the 2hr hashrate of > 3%.
+
+<br>
+
+### Tuning 
 
 CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HEALTHY MACHINE.
 
@@ -205,7 +259,11 @@ At that point, increase voltage by a single step (2mv for KS0 Pro, 7 or 6mv depe
 
 While 5m and 30m hashrates in the GUI are useful tools for directional guidance after the machine has had time to ramp up, final hashrate measurements should be done over an extended time period.  5 minute hashrate readings are quite variable, and even 30 minute hashrate readings aren't great, as you can still have a couple percent variability.  The 2hr reading in the UI should have less than 1% variability from my experience, though it doesn't take hardware errors / pool rejections into account.
 
-And finally, if you are trying to replicate the results of another OC...  
+<br>
+
+### Reproducing results from other firmware
+
+And finally, if you are trying to replicate the OC results of another firmware...  
 * If you previously got X hashrate on the free OC firmware (where X is at least a 30m average from the UI, or a 24 hr avg from the pool), then simply set your clock offset such that the percent increase is (X / \<stock hashrate\>) - 1, with no additional voltage.  For example, if you were getting a 24hr average of 160GH/s on a KS0, then simply set your clock so that the percent increase is (160 / 100) - 1 = 0.6 or 60%.  If you want even higher hashrate, you can then proceed to raise clocks/voltages as appropriate.
 * If you previously got X hashrate on another paid OC firmware, the clock setting procedure is the same as above.  However, in addition, the other firmware was also almost certainly setting voltage above stock levels, so after setting the appropriate clock, you should increase voltage one step at a time until the hashrate reaches the expected level.
 
