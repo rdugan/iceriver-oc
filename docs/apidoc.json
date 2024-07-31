@@ -1,5 +1,5 @@
 {
-    "description": "Requests are made using HTTP GET, or HTTP POST when parameters are to be included.  Parameters are sent in serialized urlencoded format.  Request details are provided in the endpoint documentation where parameters are available.  Response details are provided where something other than a basic response is possible.  A basic response simply includes error and message properties, where success generally looks like {\"error\": 0, \"message\": \"\"}",
+    "description": "Requests are made over https/443 using HTTP GET, or HTTP POST when parameters are to be included.  Auth/auth is done via API token using a header of the form 'Authorization: Bearer <token>'. Parameters are sent in serialized urlencoded format.  Request details are provided in the endpoint documentation where parameters are available.  Response details are provided where something other than a basic response is possible.  A basic response simply includes error and message properties, where success generally looks like {\"error\": 0, \"message\": \"\"}",
     "endpoints": {
         "/api/overview": {
             "description": "get combined set of data points, including hashrate, pool info, hashboard status, etc",

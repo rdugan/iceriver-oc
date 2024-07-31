@@ -64,6 +64,7 @@ kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y
 * At some point a widespread DNS update seems to have affected multiple ISPs, which caused them to 'black-hole' traffic to *.pbfarmer.cc.  This meant that while the pool connections succeeded, all subsequent traffic disappeared into the void.  If you are seeing a similar situation where you appear to be connected to a pool, but are not getting any jobs or producing shares, try updating your DNS server (preferably in your router, but also possible on the ASIC) to a public option such as Google (8.8.8.8, 8.8.4.4), Cloudflare (1.1.1.1), etc.
 * A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining (even after following the previous steps), check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the 'AIProtection' features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
 * There may be incompatiblities between HiveOS/AsicHub or other 3rd party management/monitoring tools and this firmware.  Many of these tools scrape the ASIC UI to get data, and since I've signficantly modified the UI, their scrapers may no longer be compatible.  The only way to address this is for the management tools to migrate to the available API.
+* Many (most?) browsers seem to have a problem reverting to http after having loaded a page via https.  In chrome, I often need to use incognito windows to access the ASIC after reverting to stock from this firmware.  Clearing site data and/or restarting your browser or pc may help if you're experiencing this.
 
 <br>
 
@@ -184,9 +185,9 @@ Replaced stock web server with updated and production environment targeted versi
 <br>
 
 ### New auth/auth routines
-The authentication and authorization controls have been completely replaced, and all traffic redirected over https.  This means forwarding the http(s) traffic through your firewall for off-site monitoring should be much safer (though I would still not necessarily recommend this - simply due to best security practices...) Login is no longer transmitted over unsecured http, and people can no longer hijack your asic simply by setting a cookie to skip login.  The random 'login incorrect' messages due to file system corruption should also be a thing of the past.
+The authentication and authorization controls have been completely replaced, and all traffic redirected over https.  This means forwarding the http(s) traffic through your firewall for off-site monitoring should be much safer (though I would still not necessarily recommend this - simply due to best security practices...) Login is no longer transmitted over unsecured http, and people can no longer hijack your asic simply by setting a cookie to skip login.  The random 'login incorrect' messages due to file system corruption should also be a thing of the past.  Please keep in mind this will mean your password will be reset to stock default after first installing.  Also, the first boot after installation will take 2+ minutes, as the machine generates the TLS certificates.
 
-Additionally the redesigned API has been secured w/ an access token, through which granular permissions can be assigned.
+Additionally the redesigned API has been secured w/ an access token, through which granular permissions can be assigned.  Tokens should be included with API requests in a header of the form 'Authorization: Bearer \<token\>'.
 
 ![Account Page](/docs/images/iceriver-oc_account.png)
 
