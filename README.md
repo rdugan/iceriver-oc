@@ -31,11 +31,11 @@ If you have any issues, finding me (pbfarmer) in the Kaspa Discord will probably
     - [TLS certificate management](#tls-certificate-management)
     - [Healthcheck loop](#healthcheck-loop)
 - [Installation](#installation)
+- [Usage Tips](#usage-tips)
   - [Power and metering](#power-and-metering)
   - [Cooling](#cooling)
   - [Tuning](#tuning)
   - [Reproducing results from other firmware](#reproducing-results-from-other-firmware)
-- [Usage Tips](#usage-tips)
 - [Let's Talk About Hashrates](#lets-talk-about-hashrates)
 
 <br>
@@ -62,7 +62,7 @@ kaspa:qzh2xglq33clvzm8820xsj7nnvtudaulnewxwl2kn0ydw9epkqgs2cjw6dh3y
 # Known Issues
 * IceRiver ASICs insist on using static IP settings, even after you set them to DHCP.  If these IPs are not reserved in your router, at some point your router may assign these IPs to another device in your network, and you will have network / connection problems.  The solution to this is to find the MAC address to IP address mapping table in the LAN/DHCP section of your router settings, and add a mapping for every one of your ASICs (the MAC address should be on a sticker on the outside of your ASIC.)  Once you've added these mappings, restart the router, update every ASIC to use DHCP, and restart all of the ASICs.  Now your ASICs should acquire the fixed IP via DHCP, and even if/when they revert to static IPs, it should no longer cause issues, since the router has reserved the IP(s).
 * At some point a widespread DNS update seems to have affected multiple ISPs, which caused them to 'black-hole' traffic to *.pbfarmer.cc.  This meant that while the pool connections succeeded, all subsequent traffic disappeared into the void.  If you are seeing a similar situation where you appear to be connected to a pool, but are not getting any jobs or producing shares, try updating your DNS server (preferably in your router, but also possible on the ASIC) to a public option such as Google (8.8.8.8, 8.8.4.4), Cloudflare (1.1.1.1), etc.
-* A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining (even after following the previous steps), check for these types of settings in your router and try disabling them.  For exmaple, in my ASUS router, I need to disable the 'AIProtection' features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
+* A number of people have found that the fee traffic or maybe domain name are tripping spam/ddos/botnet protections in their routers, which commonly target mining traffic.  If your ASIC seems to connect to pools but is not mining (even after following the previous steps), check for these types of settings in your router and try disabling them.  For example, in my ASUS router, I need to disable the 'AIProtection' features called 'Two-Way IPS' and 'Infected Device Prevention and Blocking' to do any sort of crypto mining.
 * There may be incompatiblities between HiveOS/AsicHub or other 3rd party management/monitoring tools and this firmware.  Many of these tools scrape the ASIC UI to get data, and since I've signficantly modified the UI, their scrapers may no longer be compatible.  The only way to address this is for the management tools to migrate to the available API.
 * Many (most?) browsers seem to have a problem reverting to http after having loaded a page via https.  In chrome, I often need to use incognito windows to access the ASIC after reverting to stock from this firmware.  Clearing site data and/or restarting your browser or pc may help if you're experiencing this.
 
