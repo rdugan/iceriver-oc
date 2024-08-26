@@ -1,5 +1,5 @@
 {
-    "description": "Requests are made over https/443 using HTTP GET, or HTTP POST when parameters are to be included.  Auth/auth is done via API token using a header of the form 'Authorization: Bearer <token>'. Parameters are sent in serialized urlencoded format.  Request details are provided in the endpoint documentation where parameters are available.  Response details are provided where something other than a basic response is possible.  A basic response simply includes error and message properties, where success generally looks like {\"error\": 0, \"message\": \"\"}",
+    "description": "Requests are made using HTTP GET, or HTTP POST when parameters are to be included.  Parameters are sent in serialized urlencoded format.  Request details are provided in the endpoint documentation where parameters are available.  Response details are provided where something other than a basic response is possible.  A basic response simply includes error and message properties, where success generally looks like {\"error\": 0, \"message\": \"\"}",
     "endpoints": {
         "/api/overview": {
             "description": "get combined set of data points, including hashrate, pool info, hashboard status, etc",
@@ -434,6 +434,7 @@
                                 "chipvoltage",
                                 "fanpwm",
                                 "fanrpm",
+                                "powerdraw",
                                 "hashrate"
                             ]
                         }
@@ -1116,8 +1117,13 @@
                                 "type": "number",
                                 "required": false
                             },
-                            "target": {
-                                "description": "temperature target for temp mode",
+                            "chip_target": {
+                                "description": "chip temperature target for temp mode",
+                                "type": "number",
+                                "required": false
+                            },
+                            "board_target": {
+                                "description": "board temperature target for temp mode",
                                 "type": "number",
                                 "required": false
                             }
@@ -1130,7 +1136,8 @@
                         "min": 30,
                         "mode": "temp",
                         "ratio": 30,
-                        "target": 65
+                        "chip_target": 65,
+                        "board_target": 75
                     }
                 }
             }
@@ -1173,8 +1180,17 @@
                             "min": 0
                         }
                     },
-                    "target": {
-                        "description": "temperature target for temp mode",
+                    "chip_target": {
+                        "description": "chip temperature target for temp mode",
+                        "type": "number",
+                        "required": false,
+                        "multiple": false,
+                        "restrictions": {
+                            "min": 0
+                        }
+                    },
+                    "board_target": {
+                        "description": "board temperature target for temp mode",
                         "type": "number",
                         "required": false,
                         "multiple": false,
@@ -1183,7 +1199,7 @@
                         }
                     }
                 },
-                "example": "min=30&mode=temp&target=65"
+                "example": "min=30&mode=temp&chip_target=65&board_target=75"
             }
         },
         "/api/network": {
