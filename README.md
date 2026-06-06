@@ -87,11 +87,10 @@ Voltage can also be increased/decreased to any integer value (within hardware li
 
 For KS0 Pro, voltage can be adjusted in 2mV increments.  
 
-VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
-
-<br>
-
-*IMPORTANT: THERE ARE CURRENTLY NO GUARDRAILS, AND NO LIMITS ENFORCED BY THIS SOFTWARE ON EITHER CLOCKS OR VOLTAGE, SO USE WITH CARE.*
+> [!NOTE]
+> Voltage control is not available for KS3/M/L at this time.
+> [!IMPORTANT]
+> There are currently no Guardrails & no limits enforced by this software on either clocks or voltage, so use with care.
 
 <br>
 
@@ -101,11 +100,15 @@ VOLTAGE CONTROL IS NOT AVAILABLE FOR KS3/M/L AT THIS TIME.
 
 A new fan mode has been added which automatically adjusts fan speed to maintain both max hash chip and board temperatures.  Temps are read every 10s and fan speed is adjusted as necessary.  
 
-Please note, this setting does not guarantee the set temperature.  It may be exceeded by up to ~5C during startup or other dynamic periods, but it should stabilize at or near the requested temperature.
+> [!NOTE]
+> This setting does not guarantee the set temperature.  It may be exceeded by up to ~5C during startup or other dynamic periods, but it should stabilize at or near the requested temperature.
 
-If you find the target temps are exceeded beyond your comfort during startup or other dynamic periods, you should increase the min fan speed.
+> [!TIP]
+> You should increase the min fan speed, if you find the target temps are exceeded beyond your comfort during startup or other dynamic periods.
 
-Fixed fan speeds will also now be reapplied at startup, after a ~1-2m delay, though it is a one-time application.  This means that if the underlying IceRiver software decides to change the fan speed again for some reason, this mode will not re-apply your setting.  Consider using the 'Target Temp' mode with an appropriate min fan speed as an alternative.
+Fixed fan speeds will also now be reapplied at startup, after a ~1-2m delay, though it is a one-time application.  This means that if the underlying IceRiver software decides to change the fan speed again for some reason, this mode will not re-apply your setting.  
+> [!TIP]
+> Consider using the 'Target Temp' mode with an appropriate min fan speed as an alternative.
 
 <br>
 
@@ -123,11 +126,13 @@ Two hours of graphing has been added for all chip metrics, with filters for summ
 
 80c chip temps appear to result in ideal hashrate performance (though this may be difficult on KS0/Pro without cooling mods.)  No guidance has been provided by IceRiver as to safe chip temp limits, but their miner software appears to restrict clock raises above 95C, and will actually throttle clocks above 110C.  At least following general guidance from G/CPUs is probably prudent (e.g. >90C warning zone, >95C danger zone, >105C critical zone).  
 
-Please note that real-time voltage will never match your setting - drivers under load experience voltage drop, meaning the running voltage will always be below your voltage setting, with more load causing a greater drop.  Chip voltage will be replaced by power draw for KS5L/M, as there is no chip voltage reading available.  A software limit of 3350W is enforced on these models, where cores will be disabled in groups of 4 should you exceed this limit.
+> [!NOTE]
+> Please note that real-time voltage will never match your setting - drivers under load experience voltage drop, meaning the running voltage will always be below your voltage setting, with more load causing a greater drop.  Chip voltage will be replaced by power draw for KS5L/M, as there is no chip voltage reading available.  A software limit of 3350W is enforced on these models, where cores will be disabled in groups of 4 should you exceed this limit.
 
 Board temp graphs have been added for all models, which includes intake, and exhaust sensor temps, as well as power stage (driver) temps for KS0/Pro/Ultra, KS1, and KS2.  In summary mode, the max power stage temp is shown for each board, while in board mode, the max power stage temp is shown for each group/controller (PSG).  Max recommended operating temp is 125C according to the chip documentation, though it is probably wise to keep a healthy margin below this temp.  
 
-Please be aware, that temperature is not the only consideration for healthy operation.  Power/current draw is also a concern, for which we don't currently have visibility or specifications.
+> [!IMPORTANT]
+> Please be aware, that temperature is not the only consideration for healthy operation.  Power/current draw is also a concern, for which we don't currently have visibility or specifications.
 
 Hashrate graphing (as well as the headline stats) now includes 30m and 2hr tracking, and also includes board level filtering.  
 
@@ -212,7 +217,8 @@ Additionally the redesigned API has been secured w/ an access token, through whi
 
 ![Account Page](/docs/images/iceriver-oc_account.png)
 
-Just as you would update the login password, PLEASE DELETE/REPLACE THIS API TOKEN if you plan on exposing your machine publicly, as it is the same across all machines by default.
+> [!IMPORTANT]
+> Just as you would update the login password, PLEASE DELETE/REPLACE THIS API TOKEN if you plan on exposing your machine publicly, as it is the same across all machines by default.
 
 <br>
 
@@ -237,7 +243,8 @@ Additionally, the 'reset' executable that has been found to randomly disappear f
 <br>
 
 # Installation
-DO NOT install over the xyys (including tswift branded) firmware on KS0 Ultras or KS5* models.  Please make sure to follow his uninstallation instructions before installing this or any other firmware!
+> [!WARNING]
+> **DO NOT** install over the xyys (including tswift branded) firmware on KS0 Ultras or KS5* models.  Please make sure to follow his uninstallation instructions before installing this or any other firmware!
 
 This is a standard firmware update package, including/improving on the latest IceRiver firmware, and applied just as official firmware would be.  Applying over any previous updates should work for KS0/Pro, KS1, KS2, and KS3* models. Applying over stock, or previous versions of this firmware should also work for KS0 Ultra, and KS5* models.
 
@@ -271,7 +278,8 @@ Hash chips on all models tend to perform best in the 75-80c range, but this is e
 
 ### Tuning 
 
-CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HEALTHY MACHINE.
+> [!IMPORTANT]
+> CLOCK OFFSET PERCENTAGE AND HASHRATE INCREASE PERCENTAGE SHOULD BE EQUAL ON A HEALTHY MACHINE.
 
 E.g. if your clock offset is 30% on a KS1, then your hashrate should be 1.3TH/s, or 30% more than the default 1 TH/s.  If this is not the case (over an appropriate measurement window,) then it means your chips are starved for voltage.
 
